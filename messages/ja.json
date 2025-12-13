@@ -1,0 +1,14 @@
+{
+  "layout": {
+    "title": "Nextアプリを作成",
+    "description": "create next app によって生成されました"
+  },
+  "home": {
+    "nextLogoAlt": "Next.js のロゴ",
+    "heading": "始めるには、page.tsx ファイルを編集してください。",
+    "paragraph": "出発点やより詳しい手順をお探しですか？<Templates>テンプレート</Templates> または <Learning>ラーニング</Learning> センターへ。",
+    "vercelAlt": "Vercel のロゴマーク",
+    "deployNow": "今すぐデプロイ",
+    "documentation": "ドキュメント"
+  }
+}
