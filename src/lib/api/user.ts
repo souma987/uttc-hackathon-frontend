@@ -13,7 +13,7 @@ export type CreatedUser = {
 };
 
 // POST /users — registers a new user
-export async function createUser(payload: CreateUserRequest): Promise<CreatedUser> {
+async function createUser(payload: CreateUserRequest): Promise<CreatedUser> {
   const response = await apiClient.post<CreatedUser>('/users', payload, {
     validateStatus: (status) => status === 201,
   });
@@ -21,7 +21,7 @@ export async function createUser(payload: CreateUserRequest): Promise<CreatedUse
 }
 
 // GET /me — returns the currently authenticated user's profile
-export async function getMe(idToken: string): Promise<CreatedUser> {
+async function getMe(idToken: string): Promise<CreatedUser> {
   const response = await apiClient.get<CreatedUser>('/me', {
     headers: {
       Authorization: `Bearer ${idToken}`,
@@ -31,9 +31,7 @@ export async function getMe(idToken: string): Promise<CreatedUser> {
   return response.data;
 }
 
-const usersApi = {
+export const userApi = {
   createUser,
   getMe,
 };
-
-export default usersApi;

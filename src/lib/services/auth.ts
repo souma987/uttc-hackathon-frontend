@@ -2,7 +2,7 @@
 
 import { auth } from "../firebase/client";
 import { onAuthStateChanged, signInWithEmailAndPassword, signOut, type User, type UserCredential } from "firebase/auth";
-import { createUser, getMe, type CreateUserRequest, type CreatedUser } from "../api/users";
+import { userApi, type CreateUserRequest, type CreatedUser } from "../api/user";
 
 export type SignInResult = {
   userCredential: UserCredential;
@@ -37,7 +37,7 @@ export type SignUpResult = {
 // Sign up via backend (POST /users) then sign in with Firebase (client-only)
 export async function signUpThenSignIn(params: SignUpParams): Promise<SignUpResult> {
   // First create user in our backend
-  const createdUser = await createUser({
+  const createdUser = await userApi.createUser({
     email: params.email,
     password: params.password,
     name: params.name,
@@ -80,5 +80,5 @@ export async function fetchCurrentUserFromBackend(): Promise<DBUser> {
     throw new Error("Not authenticated");
   }
   const idToken = await current.getIdToken();
-  return await getMe(idToken);
+  return await userApi.getMe(idToken);
 }
