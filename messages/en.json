@@ -50,5 +50,42 @@
         "cookies": "Cookie Policy"
       }
     }
+  },
+  "auth": {
+    "title": "Welcome",
+    "subtitle": "Sign in to your account or create a new one",
+    "tabs": {
+      "signIn": "Sign In",
+      "signUp": "Sign Up"
+    },
+    "signIn": {
+      "title": "Sign in to your account",
+      "email": "Email",
+      "emailPlaceholder": "you@example.com",
+      "password": "Password",
+      "passwordPlaceholder": "Enter your password",
+      "submit": "Sign In",
+      "submitting": "Signing in..."
+    },
+    "signUp": {
+      "title": "Create a new account",
+      "email": "Email",
+      "emailPlaceholder": "you@example.com",
+      "password": "Password",
+      "passwordPlaceholder": "Choose a password",
+      "confirmPassword": "Confirm Password",
+      "confirmPasswordPlaceholder": "Re-enter your password",
+      "submit": "Sign Up",
+      "submitting": "Creating account...",
+      "success": "Your account has been created successfully.",
+      "errorGeneric": "We couldn't create your account. Please try again."
+    },
+    "errors": {
+      "emailRequired": "Email is required",
+      "emailInvalid": "Invalid email address",
+      "passwordRequired": "Password is required",
+      "passwordMinLength": "Password must be at least 6 characters",
+      "passwordsNotMatch": "Passwords do not match"
+    }
   }
 }

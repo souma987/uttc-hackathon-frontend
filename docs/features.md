@@ -3,6 +3,8 @@
 ## Authentication & User Management
 - [ ] **User Onboarding**
     - [ ] **Sign Up**: Register a new account using Email/Password.
+        - [x] Backend API integration: POST /users (create user) ✓
+        - [x] UI wiring to call API from sign-up form ✓
     - [ ] **Sign In**: Authenticate existing users.
     - [ ] **Sign Out**: Securely log out current session.
 
