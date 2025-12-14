@@ -89,7 +89,7 @@ export function SignUpForm() {
           rules={{
             required: t("errors.passwordRequired"),
             minLength: {
-              value: 6,
+              value: 8,
               message: t("errors.passwordMinLength"),
             },
           }}
