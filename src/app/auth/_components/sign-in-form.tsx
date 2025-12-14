@@ -21,7 +21,11 @@ type SignInFormData = {
   password: string;
 };
 
-export function SignInForm() {
+type SignInFormProps = {
+  redirectPath?: string;
+};
+
+export function SignInForm({ redirectPath = "/market" }: SignInFormProps) {
   const t = useTranslations("auth");
   const [isLoading, setIsLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
@@ -39,7 +43,10 @@ export function SignInForm() {
     setErrorMessage(null);
     try {
       await signInWithEmailPassword(data.email, data.password);
-      router.push("/market");
+      const destination = redirectPath.startsWith("/")
+        ? redirectPath
+        : "/market";
+      router.push(destination);
     } catch (error) {
       console.error("Sign in error:", error);
       setErrorMessage(t("signIn.errorGeneric"));

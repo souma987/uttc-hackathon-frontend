@@ -1,11 +1,28 @@
-import {useTranslations} from "next-intl";
-import {Tabs, TabsContent, TabsList, TabsTrigger} from "@/components/ui/tabs";
-import {Card, CardContent, CardHeader, CardTitle,} from "@/components/ui/card";
-import {SignInForm} from "./_components/sign-in-form";
-import {SignUpForm} from "./_components/sign-up-form";
+import { getTranslations } from "next-intl/server";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { SignInForm } from "./_components/sign-in-form";
+import { SignUpForm } from "./_components/sign-up-form";
 
-export default function AuthPage() {
-  const t = useTranslations("auth");
+type AuthPageProps = {
+  searchParams?:
+    | Promise<Record<string, string | string[] | undefined>>
+    | Record<string, string | string[] | undefined>;
+};
+
+export default async function AuthPage({ searchParams }: AuthPageProps) {
+  const t = await getTranslations("auth");
+  const resolvedSearchParams =
+    ((searchParams ? await searchParams : undefined) ?? {}) as Record<
+      string,
+      string | string[] | undefined
+    >;
+  const rawNext = resolvedSearchParams?.next;
+  const nextValue = Array.isArray(rawNext) ? rawNext[0] : rawNext;
+  const redirectPath =
+    typeof nextValue === "string" && nextValue.startsWith("/")
+      ? nextValue
+      : "/market";
 
   return (
     <div className="w-full px-4 py-20">
@@ -29,7 +46,7 @@ export default function AuthPage() {
                   <CardTitle>{t("signIn.title")}</CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <SignInForm />
+                  <SignInForm redirectPath={redirectPath} />
                 </CardContent>
               </Card>
             </TabsContent>
@@ -40,7 +57,7 @@ export default function AuthPage() {
                   <CardTitle>{t("signUp.title")}</CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <SignUpForm />
+                  <SignUpForm redirectPath={redirectPath} />
                 </CardContent>
               </Card>
             </TabsContent>

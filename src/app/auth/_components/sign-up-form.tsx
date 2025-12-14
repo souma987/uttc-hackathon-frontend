@@ -22,7 +22,11 @@ type SignUpFormData = {
   confirmPassword: string;
 };
 
-export function SignUpForm() {
+type SignUpFormProps = {
+  redirectPath?: string;
+};
+
+export function SignUpForm({ redirectPath = "/market" }: SignUpFormProps) {
   const t = useTranslations("auth");
   const [isLoading, setIsLoading] = useState(false);
   const [successMessage, setSuccessMessage] = useState<string | null>(null);
@@ -44,8 +48,10 @@ export function SignUpForm() {
     try {
       await signUpThenSignIn({ email: data.email, password: data.password });
       setSuccessMessage(t("signUp.success"));
-      // After sign up + sign in, go to market
-      router.push("/market");
+      const destination = redirectPath.startsWith("/")
+        ? redirectPath
+        : "/market";
+      router.push(destination);
     } catch (error) {
       console.error("Sign up error:", error);
       // Basic error feedback
