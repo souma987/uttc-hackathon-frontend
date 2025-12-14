@@ -13,7 +13,7 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 import { Separator } from "@/components/ui/separator";
-import { LanguageToggle } from "./language-toggle";
+import { LanguageToggle } from "@/app/_components/language-toggle";
 
 export function MobileNav() {
   const t = useTranslations("market.header");

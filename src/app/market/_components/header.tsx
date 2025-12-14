@@ -10,7 +10,6 @@ import {
   navigationMenuTriggerStyle,
 } from "@/components/ui/navigation-menu";
 import { UserMenu } from "./user-menu";
-import { LanguageToggle } from "./language-toggle";
 import { MobileNav } from "./mobile-nav";
 
 export function Header() {
@@ -46,12 +45,8 @@ export function Header() {
             </NavigationMenu>
           </div>
 
-          {/* Right cluster: Language & User */}
+          {/* Right cluster: User (language moved to footer) */}
           <div className="flex items-center space-x-4">
-            {/* Hide Language toggle on small screens; it is available inside the mobile menu */}
-            <div className="hidden md:block">
-              <LanguageToggle />
-            </div>
             <UserMenu />
           </div>
         </div>

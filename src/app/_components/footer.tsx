@@ -32,9 +32,7 @@ export async function Footer() {
             <Link href="/market" className="font-bold text-xl">
               {t("logo")}
             </Link>
-            <p className="mt-2 text-sm text-muted-foreground">
-              {t("tagline")}
-            </p>
+            <p className="mt-2 text-sm text-muted-foreground">{t("tagline")}</p>
           </div>
 
           {/* Company Links */}
@@ -88,13 +86,14 @@ export async function Footer() {
             </ul>
           </div>
         </div>
-      </div>
-      <div className="flex flex-col md:flex-row justify-between items-center text-sm text-muted-foreground py-5 px-4 sm:px-6 lg:px-8 w-full">
-        <p>{t("copyright", { year: new Date().getFullYear() })}</p>
-        <div className="mt-3 md:mt-0">
-          <LanguageToggle />
+        <div className="w-full py-5 flex flex-col md:flex-row justify-between items-center text-sm text-muted-foreground">
+          <p>{t("copyright", { year: new Date().getFullYear() })}</p>
+          <div className="mt-3 md:mt-0">
+            <LanguageToggle />
+          </div>
         </div>
       </div>
+
     </footer>
   );
 }
