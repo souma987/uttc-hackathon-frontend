@@ -18,7 +18,7 @@ import { signOutCurrentUser } from "@/lib/services/auth";
 export function UserMenu() {
   const t = useTranslations("market.header.userMenu");
   const tAuth = useTranslations("auth");
-  const { dbUser, loading, isAuthenticated } = useAuth();
+  const { dbUser, loading } = useAuth();
 
   if (loading) {
     // Simple loading placeholder to satisfy granular loading requirement
@@ -27,7 +27,7 @@ export function UserMenu() {
     );
   }
 
-  if (!isAuthenticated || !dbUser) {
+  if (!dbUser) {
     return (
       <Link href="/auth">
         <Button variant="outline" className="h-9">{tAuth("tabs.signIn")}</Button>
