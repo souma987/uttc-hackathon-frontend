@@ -3,7 +3,7 @@ import { getTranslations } from "next-intl/server";
 import { LanguageToggle } from "./language-toggle";
 
 export async function Footer() {
-  const t = await getTranslations("market.footer");
+  const t = await getTranslations("footer");
 
   const footerLinks = {
     company: [

@@ -28,27 +28,6 @@
         "myListings": "出品リスト",
         "logout": "ログアウト"
       }
-    },
-    "footer": {
-      "logo": "マーケットプレイス",
-      "tagline": "信頼できるP2Pマーケットプレイス",
-      "copyright": "© {year} マーケットプレイス. All rights reserved.",
-      "sections": {
-        "company": "会社情報",
-        "support": "サポート",
-        "legal": "法的情報"
-      },
-      "links": {
-        "about": "会社概要",
-        "careers": "採用情報",
-        "press": "プレス",
-        "help": "ヘルプセンター",
-        "safety": "安全ガイド",
-        "contact": "お問い合わせ",
-        "terms": "利用規約",
-        "privacy": "プライバシーポリシー",
-        "cookies": "Cookieポリシー"
-      }
     }
   },
   "auth": {
@@ -84,6 +63,27 @@
       "passwordRequired": "パスワードは必須です",
       "passwordMinLength": "パスワードは6文字以上である必要があります",
       "passwordsNotMatch": "パスワードが一致しません"
+    }
+  },
+  "footer": {
+    "logo": "マーケットプレイス",
+    "tagline": "信頼できるP2Pマーケットプレイス",
+    "copyright": "© {year} マーケットプレイス. All rights reserved.",
+    "sections": {
+      "company": "会社情報",
+      "support": "サポート",
+      "legal": "法的情報"
+    },
+    "links": {
+      "about": "会社概要",
+      "careers": "採用情報",
+      "press": "プレス",
+      "help": "ヘルプセンター",
+      "safety": "安全ガイド",
+      "contact": "お問い合わせ",
+      "terms": "利用規約",
+      "privacy": "プライバシーポリシー",
+      "cookies": "Cookieポリシー"
     }
   }
 }

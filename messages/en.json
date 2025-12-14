@@ -28,27 +28,6 @@
         "myListings": "My Listings",
         "logout": "Log out"
       }
-    },
-    "footer": {
-      "logo": "Marketplace",
-      "tagline": "Your trusted peer-to-peer marketplace",
-      "copyright": "© {year} Marketplace. All rights reserved.",
-      "sections": {
-        "company": "Company",
-        "support": "Support",
-        "legal": "Legal"
-      },
-      "links": {
-        "about": "About Us",
-        "careers": "Careers",
-        "press": "Press",
-        "help": "Help Center",
-        "safety": "Safety Tips",
-        "contact": "Contact Us",
-        "terms": "Terms of Service",
-        "privacy": "Privacy Policy",
-        "cookies": "Cookie Policy"
-      }
     }
   },
   "auth": {
@@ -86,6 +65,27 @@
       "passwordRequired": "Password is required",
       "passwordMinLength": "Password must be at least 6 characters",
       "passwordsNotMatch": "Passwords do not match"
+    }
+  },
+  "footer": {
+    "logo": "Marketplace",
+    "tagline": "Your trusted peer-to-peer marketplace",
+    "copyright": "© {year} Marketplace. All rights reserved.",
+    "sections": {
+      "company": "Company",
+      "support": "Support",
+      "legal": "Legal"
+    },
+    "links": {
+      "about": "About Us",
+      "careers": "Careers",
+      "press": "Press",
+      "help": "Help Center",
+      "safety": "Safety Tips",
+      "contact": "Contact Us",
+      "terms": "Terms of Service",
+      "privacy": "Privacy Policy",
+      "cookies": "Cookie Policy"
     }
   }
 }
