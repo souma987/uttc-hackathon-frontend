@@ -1,6 +1,6 @@
 "use client";
 
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import {
   Select,
   SelectContent,
@@ -8,7 +8,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { useRouter, usePathname } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { useTransition } from "react";
 
 const locales = [
@@ -19,6 +19,7 @@ const locales = [
 export function LanguageToggle() {
   const t = useTranslations("market.header");
   const router = useRouter();
+  const locale = useLocale();
   const [isPending, startTransition] = useTransition();
 
   const handleLocaleChange = (newLocale: string) => {
@@ -29,7 +30,7 @@ export function LanguageToggle() {
   };
 
   return (
-    <Select onValueChange={handleLocaleChange} disabled={isPending}>
+    <Select value={locale} onValueChange={handleLocaleChange} disabled={isPending}>
       <SelectTrigger className="w-[130px]" aria-label={t("languageLabel")}>
         <SelectValue placeholder={t("languageLabel")} />
       </SelectTrigger>
