@@ -22,17 +22,15 @@ export function useAuth(): UseAuthResult {
     const unsubscribe = subscribeToAuthChanges(
       (u) => {
         setUser(u);
-        setLoading(false);
 
         // Fetch backend user profile when signed in
         if (u) {
-          setLoading(true);
           fetchCurrentUserFromBackend()
             .then((profile) => {
               setDbUser(profile);
             })
-            .catch(() => {
-              // For hackathon scope, swallow errors; callers can decide what to do
+            .catch((err) => {
+              console.error("Failed to fetch db user:", err)
               setDbUser(null);
             })
             .finally(() => setLoading(false));
@@ -41,12 +39,6 @@ export function useAuth(): UseAuthResult {
           setDbUser(null);
           setLoading(false);
         }
-      },
-      () => {
-        // On error we just mark as not loading; errors can be handled by callers if needed.
-        setUser(null);
-        setLoading(false);
-        setDbUser(null);
       }
     );
 

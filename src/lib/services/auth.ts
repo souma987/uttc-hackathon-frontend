@@ -54,7 +54,6 @@ export type DBUser = CreatedUser;
 // Subscribe to Firebase auth state changes (client-only)
 export function subscribeToAuthChanges(
   onUserChange: (user: User | null) => void,
-  onError?: (error: unknown) => void
 ): () => void {
   if (typeof window === "undefined" || !auth) {
     // No-op unsubscribe when running on server
@@ -64,9 +63,6 @@ export function subscribeToAuthChanges(
   return onAuthStateChanged(
     auth,
     (user) => onUserChange(user),
-    (error) => {
-      onError?.(error);
-    }
   );
 }
 
