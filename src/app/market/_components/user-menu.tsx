@@ -12,6 +12,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
+import { Skeleton } from "@/components/ui/skeleton";
 import { useAuth } from "@/hooks/use-auth";
 import { signOutCurrentUser } from "@/lib/services/auth";
 
@@ -21,10 +22,7 @@ export function UserMenu() {
   const { dbUser, loading } = useAuth();
 
   if (loading) {
-    // Simple loading placeholder to satisfy granular loading requirement
-    return (
-      <Button variant="ghost" className="relative h-9 w-9 rounded-full animate-pulse" aria-disabled />
-    );
+    return <Skeleton className="h-9 w-9 rounded-full" />;
   }
 
   if (!dbUser) {
