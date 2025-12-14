@@ -10,5 +10,44 @@
     "vercelAlt": "Vercel のロゴマーク",
     "deployNow": "今すぐデプロイ",
     "documentation": "ドキュメント"
+  },
+  "market": {
+    "header": {
+      "logo": "マーケットプレイス",
+      "languageLabel": "言語",
+      "nav": {
+        "menu": "メニュー",
+        "browse": "探す",
+        "sell": "出品",
+        "messages": "メッセージ"
+      },
+      "userMenu": {
+        "profile": "プロフィール",
+        "settings": "設定",
+        "myListings": "出品リスト",
+        "logout": "ログアウト"
+      }
+    },
+    "footer": {
+      "logo": "マーケットプレイス",
+      "tagline": "信頼できるP2Pマーケットプレイス",
+      "copyright": "© {year} マーケットプレイス. All rights reserved.",
+      "sections": {
+        "company": "会社情報",
+        "support": "サポート",
+        "legal": "法的情報"
+      },
+      "links": {
+        "about": "会社概要",
+        "careers": "採用情報",
+        "press": "プレス",
+        "help": "ヘルプセンター",
+        "safety": "安全ガイド",
+        "contact": "お問い合わせ",
+        "terms": "利用規約",
+        "privacy": "プライバシーポリシー",
+        "cookies": "Cookieポリシー"
+      }
+    }
   }
 }

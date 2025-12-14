@@ -10,5 +10,44 @@
     "vercelAlt": "Vercel logomark",
     "deployNow": "Deploy Now",
     "documentation": "Documentation"
+  },
+  "market": {
+    "header": {
+      "logo": "Marketplace",
+      "languageLabel": "Language",
+      "nav": {
+        "menu": "Menu",
+        "browse": "Browse",
+        "sell": "Sell",
+        "messages": "Messages"
+      },
+      "userMenu": {
+        "profile": "Profile",
+        "settings": "Settings",
+        "myListings": "My Listings",
+        "logout": "Log out"
+      }
+    },
+    "footer": {
+      "logo": "Marketplace",
+      "tagline": "Your trusted peer-to-peer marketplace",
+      "copyright": "© {year} Marketplace. All rights reserved.",
+      "sections": {
+        "company": "Company",
+        "support": "Support",
+        "legal": "Legal"
+      },
+      "links": {
+        "about": "About Us",
+        "careers": "Careers",
+        "press": "Press",
+        "help": "Help Center",
+        "safety": "Safety Tips",
+        "contact": "Contact Us",
+        "terms": "Terms of Service",
+        "privacy": "Privacy Policy",
+        "cookies": "Cookie Policy"
+      }
+    }
   }
 }
