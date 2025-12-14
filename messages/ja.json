@@ -17,6 +17,7 @@
       "languageLabel": "言語",
       "nav": {
         "menu": "メニュー",
+        "toggle": "メニューを開閉",
         "browse": "探す",
         "sell": "出品",
         "messages": "メッセージ"

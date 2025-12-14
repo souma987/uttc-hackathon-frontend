@@ -17,6 +17,7 @@
       "languageLabel": "Language",
       "nav": {
         "menu": "Menu",
+        "toggle": "Toggle menu",
         "browse": "Browse",
         "sell": "Sell",
         "messages": "Messages"

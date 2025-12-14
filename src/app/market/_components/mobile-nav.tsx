@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { useTranslations } from "next-intl";
 import Link from "next/link";
-import { Menu } from "lucide-react";
+import { Menu, LayoutGrid, MessageSquare, Store } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   Sheet,
@@ -12,15 +12,17 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
+import { Separator } from "@/components/ui/separator";
+import { LanguageToggle } from "./language-toggle";
 
 export function MobileNav() {
-  const t = useTranslations("market.header.nav");
+  const t = useTranslations("market.header");
   const [open, setOpen] = useState(false);
 
   const navItems = [
-    { href: "/market", label: t("browse") },
-    { href: "/market/sell", label: t("sell") },
-    { href: "/market/messages", label: t("messages") },
+    { href: "/market", label: t("nav.browse"), Icon: LayoutGrid },
+    { href: "/market/sell", label: t("nav.sell"), Icon: Store },
+    { href: "/market/messages", label: t("nav.messages"), Icon: MessageSquare },
   ];
 
   return (
@@ -28,25 +30,38 @@ export function MobileNav() {
       <SheetTrigger asChild>
         <Button variant="ghost" size="icon" className="md:hidden">
           <Menu className="h-5 w-5" />
-          <span className="sr-only">Toggle menu</span>
+          <span className="sr-only">{t("nav.toggle")}</span>
         </Button>
       </SheetTrigger>
-      <SheetContent side="left">
-        <SheetHeader>
-          <SheetTitle>{t("menu")}</SheetTitle>
-        </SheetHeader>
-        <nav className="flex flex-col space-y-4 mt-6">
-          {navItems.map((item) => (
-            <Link
-              key={item.href}
-              href={item.href}
-              className="text-lg font-medium hover:text-primary transition-colors"
-              onClick={() => setOpen(false)}
-            >
-              {item.label}
+      {/* Rebuilt mobile experience: top sheet, full-height, large tappable actions */}
+      <SheetContent side="top" className="h-[100vh] p-0 overflow-auto">
+        <div className="p-4">
+          <SheetHeader>
+            <SheetTitle>{t("logo")}</SheetTitle>
+          </SheetHeader>
+        </div>
+
+        <Separator />
+
+        <nav className="flex flex-col gap-2 p-4">
+          {navItems.map(({ href, label, Icon }) => (
+            <Link key={href} href={href} onClick={() => setOpen(false)}>
+              <Button variant="ghost" className="w-full justify-start h-12 text-base">
+                <Icon className="mr-3 h-5 w-5" />
+                {label}
+              </Button>
             </Link>
           ))}
         </nav>
+
+        <div className="mt-2 px-4">
+          <Separator />
+        </div>
+
+        <div className="p-4 flex items-center justify-between">
+          <span className="text-sm text-muted-foreground">{t("languageLabel")}</span>
+          <LanguageToggle />
+        </div>
       </SheetContent>
     </Sheet>
   );
