@@ -45,6 +45,7 @@
       "passwordPlaceholder": "パスワードを入力",
       "submit": "サインイン",
       "submitting": "サインイン中...",
+      "toastSuccess": "サインイン成功",
       "errorGeneric": "サインインできませんでした。再度お試しください。"
     },
     "signUp": {
@@ -57,7 +58,7 @@
       "confirmPasswordPlaceholder": "パスワードを再入力",
       "submit": "新規登録",
       "submitting": "アカウント作成中...",
-      "success": "アカウントが作成されました",
+      "toastSuccess": "アカウント作成成功",
       "errorGeneric": "アカウントの作成ができませんでした。もう一度お試しください。"
     },
     "errors": {

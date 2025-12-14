@@ -1,10 +1,11 @@
 "use client";
 
 import { useTranslations } from "next-intl";
-import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { signInWithEmailPassword } from "@/lib/services/auth";
 import { useForm } from "react-hook-form";
+import { useState } from "react";
+import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -43,6 +44,7 @@ export function SignInForm({ redirectPath = "/market" }: SignInFormProps) {
     setErrorMessage(null);
     try {
       await signInWithEmailPassword(data.email, data.password);
+      toast.success(t("signIn.toastSuccess"));
       const destination = redirectPath.startsWith("/")
         ? redirectPath
         : "/market";

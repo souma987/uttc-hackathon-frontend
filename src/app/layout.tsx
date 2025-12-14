@@ -4,6 +4,7 @@ import "./globals.css";
 import {NextIntlClientProvider} from "next-intl";
 import {getTranslations} from "next-intl/server";
 import { Footer } from "./_components/footer";
+import {Toaster} from "@/components/ui/sonner";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -39,6 +40,7 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <NextIntlClientProvider>
+          <Toaster position="top-center"/>
           <div className="flex min-h-screen flex-col">
             <div className="flex-1">
               {children}

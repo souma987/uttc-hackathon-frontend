@@ -4,6 +4,7 @@ import { useTranslations } from "next-intl";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
+import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -29,7 +30,6 @@ type SignUpFormProps = {
 export function SignUpForm({ redirectPath = "/market" }: SignUpFormProps) {
   const t = useTranslations("auth");
   const [isLoading, setIsLoading] = useState(false);
-  const [successMessage, setSuccessMessage] = useState<string | null>(null);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const router = useRouter();
 
@@ -43,11 +43,10 @@ export function SignUpForm({ redirectPath = "/market" }: SignUpFormProps) {
 
   const onSubmit = async (data: SignUpFormData) => {
     setIsLoading(true);
-    setSuccessMessage(null);
     setErrorMessage(null);
     try {
       await signUpThenSignIn({ email: data.email, password: data.password });
-      setSuccessMessage(t("signUp.success"));
+      toast.success(t("signUp.toastSuccess"));
       const destination = redirectPath.startsWith("/")
         ? redirectPath
         : "/market";
@@ -138,11 +137,6 @@ export function SignUpForm({ redirectPath = "/market" }: SignUpFormProps) {
           )}
         />
 
-        {successMessage && (
-          <p className="text-sm text-green-600" role="status">
-            {successMessage}
-          </p>
-        )}
         {errorMessage && (
           <p className="text-sm text-red-600" role="alert">
             {errorMessage}

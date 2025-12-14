@@ -45,6 +45,7 @@
       "passwordPlaceholder": "Enter your password",
       "submit": "Sign In",
       "submitting": "Signing in...",
+      "toastSuccess": "Signed in successfully",
       "errorGeneric": "We couldn't sign you in. Please try again."
     },
     "signUp": {
@@ -57,7 +58,7 @@
       "confirmPasswordPlaceholder": "Re-enter your password",
       "submit": "Sign Up",
       "submitting": "Creating account...",
-      "success": "Your account has been created successfully.",
+      "toastSuccess": "Account created successfully.",
       "errorGeneric": "We couldn't create your account. Please try again."
     },
     "errors": {
