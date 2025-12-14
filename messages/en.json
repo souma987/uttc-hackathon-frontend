@@ -44,7 +44,8 @@
       "password": "Password",
       "passwordPlaceholder": "Enter your password",
       "submit": "Sign In",
-      "submitting": "Signing in..."
+      "submitting": "Signing in...",
+      "errorGeneric": "We couldn't sign you in. Please try again."
     },
     "signUp": {
       "title": "Create a new account",
