@@ -2,6 +2,8 @@
 
 import { useTranslations } from "next-intl";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
+import { signInWithEmailPassword } from "@/lib/services/auth";
 import { useForm } from "react-hook-form";
 import { Button } from "@/components/ui/button";
 import {
@@ -22,6 +24,8 @@ type SignInFormData = {
 export function SignInForm() {
   const t = useTranslations("auth");
   const [isLoading, setIsLoading] = useState(false);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  const router = useRouter();
 
   const form = useForm<SignInFormData>({
     defaultValues: {
@@ -32,11 +36,13 @@ export function SignInForm() {
 
   const onSubmit = async (data: SignInFormData) => {
     setIsLoading(true);
+    setErrorMessage(null);
     try {
-      // TODO: Implement sign in logic
-      console.log("Sign in data:", data);
+      await signInWithEmailPassword(data.email, data.password);
+      router.push("/market");
     } catch (error) {
       console.error("Sign in error:", error);
+      setErrorMessage(t("signIn.errorGeneric"));
     } finally {
       setIsLoading(false);
     }
@@ -94,6 +100,12 @@ export function SignInForm() {
             </FormItem>
           )}
         />
+
+        {errorMessage && (
+          <p className="text-sm text-red-600" role="alert">
+            {errorMessage}
+          </p>
+        )}
 
         <Button type="submit" className="w-full" disabled={isLoading}>
           {isLoading ? t("signIn.submitting") : t("signIn.submit")}

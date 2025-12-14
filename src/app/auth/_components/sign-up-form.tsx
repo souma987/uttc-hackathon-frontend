@@ -2,6 +2,7 @@
 
 import { useTranslations } from "next-intl";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { Button } from "@/components/ui/button";
 import {
@@ -13,7 +14,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { createUser } from "@/lib/api/users";
+import { signUpThenSignIn } from "@/lib/services/auth";
 
 type SignUpFormData = {
   email: string;
@@ -26,6 +27,7 @@ export function SignUpForm() {
   const [isLoading, setIsLoading] = useState(false);
   const [successMessage, setSuccessMessage] = useState<string | null>(null);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  const router = useRouter();
 
   const form = useForm<SignUpFormData>({
     defaultValues: {
@@ -40,10 +42,10 @@ export function SignUpForm() {
     setSuccessMessage(null);
     setErrorMessage(null);
     try {
-      await createUser({ email: data.email, password: data.password });
+      await signUpThenSignIn({ email: data.email, password: data.password });
       setSuccessMessage(t("signUp.success"));
-      // Optionally reset the form after successful sign up
-      form.reset({ email: data.email, password: "", confirmPassword: "" });
+      // After sign up + sign in, go to market
+      router.push("/market");
     } catch (error) {
       console.error("Sign up error:", error);
       // Basic error feedback

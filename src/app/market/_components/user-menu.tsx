@@ -1,6 +1,7 @@
 "use client";
 
 import { useTranslations } from "next-intl";
+import Link from "next/link";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -11,29 +12,53 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
+import { useAuth } from "@/hooks/use-auth";
+import { signOutCurrentUser } from "@/lib/services/auth";
 
 export function UserMenu() {
   const t = useTranslations("market.header.userMenu");
+  const tAuth = useTranslations("auth");
+  const { dbUser, loading, isAuthenticated } = useAuth();
 
-  // TODO: Replace with actual user data from auth context
-  const user = {
-    name: "John Doe",
-    email: "john@example.com",
-    avatar: "",
-  };
+  if (loading) {
+    // Simple loading placeholder to satisfy granular loading requirement
+    return (
+      <Button variant="ghost" className="relative h-9 w-9 rounded-full animate-pulse" aria-disabled />
+    );
+  }
 
-  const initials = user.name
+  if (!isAuthenticated || !dbUser) {
+    return (
+      <Link href="/auth">
+        <Button variant="outline" className="h-9">{tAuth("tabs.signIn")}</Button>
+      </Link>
+    );
+  }
+
+  const displayName = dbUser.name;
+  const email = dbUser.email || "";
+  const initials = (displayName || "U")
     .split(" ")
     .map((n) => n[0])
     .join("")
     .toUpperCase();
+
+  const handleLogout = async () => {
+    try {
+      await signOutCurrentUser();
+    } catch (e) {
+      // Keep errors silent in UI for hackathon scope; console for debugging
+      console.error("Logout failed", e);
+    }
+  };
 
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <Button variant="ghost" className="relative h-9 w-9 rounded-full">
           <Avatar className="h-9 w-9">
-            <AvatarImage src={user.avatar} alt={user.name} />
+            { /* TODO: add avatar */ }
+            <AvatarImage src={undefined} alt={displayName} />
             <AvatarFallback>{initials}</AvatarFallback>
           </Avatar>
         </Button>
@@ -41,9 +66,9 @@ export function UserMenu() {
       <DropdownMenuContent className="w-56" align="end" forceMount>
         <DropdownMenuLabel className="font-normal">
           <div className="flex flex-col space-y-1">
-            <p className="text-sm font-medium leading-none">{user.name}</p>
+            <p className="text-sm font-medium leading-none">{displayName}</p>
             <p className="text-xs leading-none text-muted-foreground">
-              {user.email}
+              {email}
             </p>
           </div>
         </DropdownMenuLabel>
@@ -52,7 +77,7 @@ export function UserMenu() {
         <DropdownMenuItem>{t("settings")}</DropdownMenuItem>
         <DropdownMenuItem>{t("myListings")}</DropdownMenuItem>
         <DropdownMenuSeparator />
-        <DropdownMenuItem>{t("logout")}</DropdownMenuItem>
+        <DropdownMenuItem onClick={handleLogout}>{t("logout")}</DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
   );

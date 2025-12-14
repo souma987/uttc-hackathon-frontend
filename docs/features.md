@@ -2,11 +2,12 @@
 
 ## Authentication & User Management
 - [ ] **User Onboarding**
-    - [ ] **Sign Up**: Register a new account using Email/Password.
-        - [x] Backend API integration: POST /users (create user) ✓
-        - [x] UI wiring to call API from sign-up form ✓
-    - [ ] **Sign In**: Authenticate existing users.
-    - [ ] **Sign Out**: Securely log out current session.
+    - [x] **Sign Up**: Register a new account using Email/Password.
+        - [x] Backend API integration: POST /users (create user)
+        - [x] UI wiring to call API from sign-up form and auto sign-in via Firebase.
+    - [x] **Sign In**: Authenticate existing users.
+    - [x] **Sign Out**: Securely log out current session.
+    - [x] **Auth State Watching (Firebase)**: Custom React hook to observe auth session and expose user/loading flags
 
 ## Marketplace Core
 - [ ] **Discovery & Browsing**
