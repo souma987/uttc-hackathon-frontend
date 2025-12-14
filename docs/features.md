@@ -21,3 +21,10 @@
 ## AI Integrations
 - [ ] **Generative AI Feature**
     - [ ] **AI Assistant**: Implementation of a generative AI feature (e.g., auto-generating item descriptions from image/title).
+
+## Website Structure & UX
+- [x] **i18n**
+  - [x] **Language Switcher**
+- [x] **Root Layout**
+  - [x] **Header**: Includes navigation, profile avatar, and language switcher. 
+  - [x] **Footer**: Includes static links.

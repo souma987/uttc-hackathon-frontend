@@ -12,7 +12,7 @@ This project is the frontend for a peer-to-peer online marketplace.
 - **State Management:** Isolate business logic and complex state into custom hooks within individual feature folders or `lib/hooks`.
 
 ### UI / Styling (shadcn/ui)
-- **Pattern:** Adopt a "shadcn-first" approach. Do not build custom UI components if a `shadcn/ui` equivalent exists.
+- **Pattern:** Adopt a "shadcn-first" approach. Always check if a `shadcn/ui` equivalent exists before building custom UI components.
 - **Installation:** Install new components using: `pnpm dlx shadcn@latest add $componentName`.
 
 ### Internationalization (next-intl)
