@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useTranslations } from "next-intl";
+import {useTranslations} from "next-intl";
 import {
   NavigationMenu,
   NavigationMenuItem,
@@ -9,8 +9,9 @@ import {
   NavigationMenuList,
   navigationMenuTriggerStyle,
 } from "@/components/ui/navigation-menu";
-import { UserMenu } from "./user-menu";
-import { MobileNav } from "./mobile-nav";
+import {UserMenu} from "./user-menu";
+import {MobileNav} from "./mobile-nav";
+import {ThemeMenu} from "@/app/_components/theme-menu";
 
 export function Header() {
   const t = useTranslations("market.header");
@@ -45,8 +46,9 @@ export function Header() {
             </NavigationMenu>
           </div>
 
-          {/* Right cluster: User (language moved to footer) */}
+          {/* Right cluster: Theme menu on desktop, user menu always visible */}
           <div className="flex items-center space-x-4">
+            <ThemeMenu />
             <UserMenu />
           </div>
         </div>

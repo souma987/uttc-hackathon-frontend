@@ -15,6 +15,14 @@
     "header": {
       "logo": "Marketplace",
       "languageLabel": "Language",
+      "themeLabel": "Theme",
+      "toggleTheme": "Toggle theme",
+      "theme": {
+        "menuLabel": "Theme",
+        "light": "Light",
+        "dark": "Dark",
+        "system": "System"
+      },
       "nav": {
         "menu": "Menu",
         "toggle": "Toggle menu",
@@ -80,7 +88,7 @@
   "footer": {
     "logo": "Marketplace",
     "tagline": "Your trusted peer-to-peer marketplace",
-    "copyright": "© {year} Marketplace. All rights reserved.",
+    "copyright": "© {year} Marketplace.",
     "sections": {
       "company": "Company",
       "support": "Support",

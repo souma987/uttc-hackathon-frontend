@@ -5,6 +5,7 @@ import {NextIntlClientProvider} from "next-intl";
 import {getTranslations} from "next-intl/server";
 import { Footer } from "./_components/footer";
 import {Toaster} from "@/components/ui/sonner";
+import { ThemeProvider } from "@/components/theme-provider";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -35,21 +36,23 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <NextIntlClientProvider>
-          <Toaster position="top-center"/>
-          <div className="flex min-h-screen flex-col">
-            <div className="flex-1">
-              {children}
+        <ThemeProvider>
+          <NextIntlClientProvider>
+            <Toaster position="top-center"/>
+            <div className="flex min-h-screen flex-col">
+              <div className="flex-1">
+                {children}
+              </div>
+              <div className="w-full px-4 sm:px-6 lg:px-8">
+                <Footer />
+              </div>
             </div>
-            <div className="w-full px-4 sm:px-6 lg:px-8">
-              <Footer />
-            </div>
-          </div>
-        </NextIntlClientProvider>
+          </NextIntlClientProvider>
+        </ThemeProvider>
       </body>
     </html>
   );

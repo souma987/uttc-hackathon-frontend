@@ -15,6 +15,14 @@
     "header": {
       "logo": "マーケットプレイス",
       "languageLabel": "言語",
+      "themeLabel": "テーマ",
+      "toggleTheme": "テーマを切り替え",
+      "theme": {
+        "menuLabel": "テーマ",
+        "light": "ライト",
+        "dark": "ダーク",
+        "system": "システム"
+      },
       "nav": {
         "menu": "メニュー",
         "toggle": "メニューを開閉",
@@ -80,7 +88,7 @@
   "footer": {
     "logo": "マーケットプレイス",
     "tagline": "信頼できるP2Pマーケットプレイス",
-    "copyright": "© {year} マーケットプレイス. All rights reserved.",
+    "copyright": "© {year} マーケットプレイス.",
     "sections": {
       "company": "会社情報",
       "support": "サポート",
