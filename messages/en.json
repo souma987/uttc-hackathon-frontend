@@ -28,6 +28,14 @@
         "myListings": "My Listings",
         "logout": "Log out"
       }
+    },
+    "feed": {
+      "heading": "Explore the latest finds",
+      "subheading": "Browse fresh listings curated from the community marketplace.",
+      "emptyState": {
+        "title": "No listings available yet",
+        "subtitle": "Check back soon; new items from the community will appear here as soon as they go live."
+      }
     }
   },
   "auth": {
