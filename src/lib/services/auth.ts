@@ -78,3 +78,11 @@ export async function fetchCurrentUserFromBackend(): Promise<DBUser> {
   const idToken = await current.getIdToken();
   return await userApi.getMe(idToken);
 }
+
+export async function awaitCurrentUser(): Promise<User | null> {
+  if (typeof window === "undefined" || !auth) {
+    throw new Error("Auth is only available in the browser");
+  }
+  await auth.authStateReady();
+  return auth.currentUser;
+}

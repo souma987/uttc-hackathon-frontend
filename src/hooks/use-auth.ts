@@ -2,8 +2,7 @@
 
 import {useEffect, useRef, useState} from 'react';
 import type {User} from 'firebase/auth';
-import {type DBUser, fetchCurrentUserFromBackend, subscribeToAuthChanges} from '@/lib/services/auth';
-import {auth} from '@/lib/firebase/client';
+import {awaitCurrentUser, type DBUser, fetchCurrentUserFromBackend, subscribeToAuthChanges} from '@/lib/services/auth';
 
 export type UseAuthResult = {
   user: User | null;
@@ -14,7 +13,7 @@ export type UseAuthResult = {
 // Watches Firebase auth state and exposes user/loading flags.
 // Usage: const { user, loading, isAuthenticated } = useAuth();
 export function useAuth(): UseAuthResult {
-  const [user, setUser] = useState<User | null>(() => auth?.currentUser ?? null);
+  const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const [dbUser, setDbUser] = useState<DBUser | null>(null);
   const lastFetchedUid = useRef<string | null>(null);
@@ -56,7 +55,8 @@ export function useAuth(): UseAuthResult {
       }
     };
 
-    void handleUserChange(auth?.currentUser ?? null);
+    awaitCurrentUser()
+      .then(handleUserChange)
 
     const unsubscribe = subscribeToAuthChanges(
       (nextUser) => {
