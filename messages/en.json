@@ -80,7 +80,7 @@
   "footer": {
     "logo": "Marketplace",
     "tagline": "Your trusted peer-to-peer marketplace",
-    "copyright": "© {year} Marketplace. All rights reserved.",
+    "copyright": "© {year} Marketplace.",
     "sections": {
       "company": "Company",
       "support": "Support",
