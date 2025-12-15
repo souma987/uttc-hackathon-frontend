@@ -13,7 +13,7 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 import { Separator } from "@/components/ui/separator";
-import { LanguageToggle } from "@/app/_components/language-toggle";
+import { ThemeToggleMobile } from "@/app/_components/theme-toggle-mobile";
 
 export function MobileNav() {
   const t = useTranslations("market.header");
@@ -58,9 +58,9 @@ export function MobileNav() {
           <Separator />
         </div>
 
-        <div className="p-4 flex items-center justify-between">
-          <span className="text-sm text-muted-foreground">{t("languageLabel")}</span>
-          <LanguageToggle />
+        <div className="p-4 flex items-center justify-end gap-4">
+          <span className="text-sm text-muted-foreground">{t("themeLabel")}</span>
+          <ThemeToggleMobile />
         </div>
       </SheetContent>
     </Sheet>

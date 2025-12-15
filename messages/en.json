@@ -15,6 +15,14 @@
     "header": {
       "logo": "Marketplace",
       "languageLabel": "Language",
+      "themeLabel": "Theme",
+      "toggleTheme": "Toggle theme",
+      "theme": {
+        "menuLabel": "Theme",
+        "light": "Light",
+        "dark": "Dark",
+        "system": "System"
+      },
       "nav": {
         "menu": "Menu",
         "toggle": "Toggle menu",
