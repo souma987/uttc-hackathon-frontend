@@ -23,6 +23,7 @@ export function ThemeMenu() {
   const { theme, setTheme, systemTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
 
+  // eslint-disable-next-line react-hooks/set-state-in-effect
   useEffect(() => setMounted(true), []);
 
   // What user selected (persisted to localStorage). Defaults to system.
