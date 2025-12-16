@@ -30,6 +30,18 @@ export type GetListingsFeedParams = {
   offset?: number;
 };
 
+// Request payload type for creating a new listing
+export type CreateListingRequest = {
+  title: string;
+  description?: string;
+  images: {
+    url: string;
+  }[];
+  price: number;
+  quantity?: number;
+  item_condition?: ItemCondition;
+};
+
 // GET /listings/feed — fetches active listings feed
 async function getListingsFeed(
   params: GetListingsFeedParams = {}
@@ -55,7 +67,26 @@ async function getListing(id: string): Promise<Listing | null> {
   return response.data;
 }
 
+// POST /listings — creates a new listing
+// Required headers:
+//   - Authorization: Bearer <Firebase ID token>
+//   - Content-Type: application/json (set by apiClient)
+async function createListing(
+  idToken: string,
+  payload: CreateListingRequest
+): Promise<Listing> {
+  const response = await apiClient.post<Listing>('/listings', payload, {
+    headers: {
+      Authorization: `Bearer ${idToken}`,
+    },
+    validateStatus: (status) => status === 201,
+  });
+
+  return response.data;
+}
+
 export const listingsApi = {
   getListingsFeed,
   getListing,
+  createListing,
 };
