@@ -68,10 +68,7 @@ export function subscribeToAuthChanges(
 
 // Fetch the current user's profile from our backend using Firebase ID token (client-only)
 export async function fetchCurrentUserFromBackend(): Promise<DBUser> {
-  if (typeof window === "undefined" || !auth) {
-    throw new Error("Auth is only available in the browser");
-  }
-  const current = auth.currentUser;
+  const current = await awaitCurrentUser();
   if (!current) {
     throw new Error("Not authenticated");
   }
