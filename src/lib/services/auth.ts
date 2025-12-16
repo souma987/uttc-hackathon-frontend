@@ -2,7 +2,7 @@
 
 import { auth } from "../firebase/browser";
 import { onAuthStateChanged, signInWithEmailAndPassword, signOut, type User, type UserCredential } from "firebase/auth";
-import { userApi, type CreateUserRequest, type CreatedUser } from "../api/user";
+import { userApi, type CreateUserRequest, type DbUser } from "../api/user";
 
 export type SignInResult = {
   userCredential: UserCredential;
@@ -30,7 +30,7 @@ export async function signOutCurrentUser(): Promise<void> {
 
 export type SignUpParams = CreateUserRequest;
 export type SignUpResult = {
-  createdUser: CreatedUser;
+  createdUser: DbUser;
   userCredential: UserCredential;
 };
 
@@ -49,7 +49,7 @@ export async function signUpThenSignIn(params: SignUpParams): Promise<SignUpResu
   return { createdUser, userCredential };
 }
 
-export type DBUser = CreatedUser;
+export type DBUser = DbUser;
 
 // Subscribe to Firebase auth state changes (client-only)
 export function subscribeToAuthChanges(

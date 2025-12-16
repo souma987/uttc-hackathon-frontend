@@ -6,23 +6,24 @@ export type CreateUserRequest = {
   password: string;
 };
 
-export type CreatedUser = {
+export type DbUser = {
   id: string; // Firebase UID
   name: string;
   email: string;
+  avatar_url?: string;
 };
 
 // POST /users — registers a new user
-async function createUser(payload: CreateUserRequest): Promise<CreatedUser> {
-  const response = await apiClient.post<CreatedUser>('/users', payload, {
+async function createUser(payload: CreateUserRequest): Promise<DbUser> {
+  const response = await apiClient.post<DbUser>('/users', payload, {
     validateStatus: (status) => status === 201,
   });
   return response.data;
 }
 
 // GET /me — returns the currently authenticated user's profile
-async function getMe(idToken: string): Promise<CreatedUser> {
-  const response = await apiClient.get<CreatedUser>('/me', {
+async function getMe(idToken: string): Promise<DbUser> {
+  const response = await apiClient.get<DbUser>('/me', {
     headers: {
       Authorization: `Bearer ${idToken}`,
     },
