@@ -44,6 +44,28 @@
         "title": "No listings available yet",
         "subtitle": "Check back soon; new items from the community will appear here as soon as they go live."
       }
+    },
+    "listing": {
+      "condition": "Condition",
+      "quantity": "Quantity",
+      "available": "{count} available",
+      "buyNow": "Buy Now",
+      "soldOut": "Sold Out",
+      "description": "Description",
+      "noImage": "No Image Available",
+      "viewImage": "View image {index}",
+      "conditions": {
+        "new": "New",
+        "excellent": "Excellent",
+        "good": "Good",
+        "not_good": "Fair",
+        "bad": "Poor"
+      },
+      "status": {
+        "active": "Active",
+        "sold": "Sold",
+        "draft": "Draft"
+      }
     }
   },
   "auth": {

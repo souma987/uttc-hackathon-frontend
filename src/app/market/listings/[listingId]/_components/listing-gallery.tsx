@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import { useTranslations } from 'next-intl';
 import { ListingImage } from '@/lib/api/listings';
 
 interface ListingGalleryProps {
@@ -9,12 +10,13 @@ interface ListingGalleryProps {
 }
 
 export function ListingGallery({ images, title }: ListingGalleryProps) {
+  const t = useTranslations('market.listing');
   const [selectedIndex, setSelectedIndex] = useState(0);
 
   if (!images || images.length === 0) {
     return (
       <div className="flex aspect-square w-full items-center justify-center rounded-lg border bg-muted">
-        <span className="text-muted-foreground">No Image Available</span>
+        <span className="text-muted-foreground">{t('noImage')}</span>
       </div>
     );
   }
@@ -44,7 +46,7 @@ export function ListingGallery({ images, title }: ListingGalleryProps) {
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src={typeof image === 'string' ? image : image.url}
-                alt={typeof image === 'string' ? `View ${index + 1}` : image.alt || `View ${index + 1}`}
+                alt={typeof image === 'string' ? t('viewImage', {index: index + 1}) : image.alt || t('viewImage', {index: index + 1})}
                 className="h-full w-full object-cover"
               />
             </button>

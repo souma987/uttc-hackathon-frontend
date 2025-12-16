@@ -1,4 +1,5 @@
 import { notFound } from 'next/navigation';
+import { getTranslations } from 'next-intl/server';
 import { listingsApi } from '@/lib/api/listings';
 import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
@@ -12,6 +13,7 @@ interface ListingDetailsPageProps {
 
 export default async function ListingDetailsPage({ params }: ListingDetailsPageProps) {
   const { listingId } = await params;
+  const t = await getTranslations('market.listing');
   
   const listing = await listingsApi.getListing(listingId);
 
@@ -36,7 +38,7 @@ export default async function ListingDetailsPage({ params }: ListingDetailsPageP
                    ? 'bg-primary/10 text-primary' 
                    : 'bg-muted text-muted-foreground'
                }`}>
-                 {listing.status}
+                 {t(`status.${listing.status}`)}
                </span>
             </div>
           </div>
@@ -44,18 +46,18 @@ export default async function ListingDetailsPage({ params }: ListingDetailsPageP
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             <div className="space-y-4">
               <div>
-                <span className="text-muted-foreground block mb-1">Condition</span>
-                <p className="font-medium capitalize text-lg">{listing.item_condition.replace(/_/g, ' ')}</p>
+                <span className="text-muted-foreground block mb-1">{t('condition')}</span>
+                <p className="font-medium capitalize text-lg">{t(`conditions.${listing.item_condition}`)}</p>
               </div>
               <div>
-                <span className="text-muted-foreground block mb-1">Quantity</span>
-                <p className="font-medium text-lg">{listing.quantity} available</p>
+                <span className="text-muted-foreground block mb-1">{t('quantity')}</span>
+                <p className="font-medium text-lg">{t('available', {count: listing.quantity})}</p>
               </div>
             </div>
 
             <div className="flex flex-col justify-end">
               <Button size="lg" className="w-full text-lg py-6" disabled={listing.status !== 'active'}>
-                {listing.status === 'active' ? 'Buy Now' : 'Sold Out'}
+                {listing.status === 'active' ? t('buyNow') : t('soldOut')}
               </Button>
             </div>
           </div>
@@ -63,7 +65,7 @@ export default async function ListingDetailsPage({ params }: ListingDetailsPageP
           <Separator />
 
           <div className="space-y-4">
-            <h3 className="text-lg font-semibold">Description</h3>
+            <h3 className="text-lg font-semibold">{t('description')}</h3>
             <p className="text-muted-foreground leading-relaxed whitespace-pre-wrap">
               {listing.description}
             </p>

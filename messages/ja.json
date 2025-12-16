@@ -44,6 +44,28 @@
         "title": "まだ出品がありません",
         "subtitle": "新しいアイテムが公開されるとここに表示されます。しばらく時間をおいてから再度ご確認ください。"
       }
+    },
+    "listing": {
+      "condition": "商品の状態",
+      "quantity": "数量",
+      "available": "残り {count} 点",
+      "buyNow": "購入する",
+      "soldOut": "売り切れ",
+      "description": "商品説明",
+      "noImage": "画像がありません",
+      "viewImage": "画像 {index} を表示",
+      "conditions": {
+        "new": "新品",
+        "excellent": "未使用に近い",
+        "good": "目立った傷や汚れなし",
+        "not_good": "やや傷や汚れあり",
+        "bad": "全体的に状態が悪い"
+      },
+      "status": {
+        "active": "販売中",
+        "sold": "売り切れ",
+        "draft": "下書き"
+      }
     }
   },
   "auth": {
