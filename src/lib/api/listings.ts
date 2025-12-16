@@ -42,7 +42,15 @@ async function getListingsFeed(
   return response.data;
 }
 
+// GET /listings/{id} — fetches a specific listing by ID
+async function getListing(id: string): Promise<Listing> {
+  const response = await apiClient.get<Listing>(`/listings/${id}`, {
+    validateStatus: (status) => status === 200,
+  });
+  return response.data;
+}
+
 export const listingsApi = {
   getListingsFeed,
+  getListing,
 };
-
