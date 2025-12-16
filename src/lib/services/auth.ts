@@ -1,6 +1,6 @@
 ﻿'use client';
 
-import { auth } from "../firebase/client";
+import { auth } from "../firebase/browser";
 import { onAuthStateChanged, signInWithEmailAndPassword, signOut, type User, type UserCredential } from "firebase/auth";
 import { userApi, type CreateUserRequest, type CreatedUser } from "../api/user";
 
