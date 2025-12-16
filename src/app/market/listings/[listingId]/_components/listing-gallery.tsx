@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import Image from 'next/image';
 import { useTranslations } from 'next-intl';
 import { ListingImage } from '@/lib/api/listings';
 
@@ -26,11 +27,12 @@ export function ListingGallery({ images, title }: ListingGalleryProps) {
   return (
     <div className="flex flex-col gap-4">
       <div className="relative aspect-square w-full overflow-hidden rounded-lg border bg-muted">
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
+        <Image
           src={typeof selectedImage === 'string' ? selectedImage : selectedImage.url}
           alt={typeof selectedImage === 'string' ? title : selectedImage.alt || title}
-          className="h-full w-full object-cover"
+          className="object-cover"
+          fill
+          priority
         />
       </div>
       {images.length > 1 && (
@@ -43,11 +45,11 @@ export function ListingGallery({ images, title }: ListingGalleryProps) {
                 selectedIndex === index ? 'ring-2 ring-primary ring-offset-2' : 'opacity-70 hover:opacity-100'
               }`}
             >
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
+              <Image
                 src={typeof image === 'string' ? image : image.url}
                 alt={typeof image === 'string' ? t('viewImage', {index: index + 1}) : image.alt || t('viewImage', {index: index + 1})}
-                className="h-full w-full object-cover"
+                className="object-cover"
+                fill
               />
             </button>
           ))}
