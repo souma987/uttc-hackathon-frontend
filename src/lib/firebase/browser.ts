@@ -1,9 +1,11 @@
 ﻿import {FirebaseApp, getApp, getApps, initializeApp} from "firebase/app";
 import {Auth, browserLocalPersistence, getAuth, setPersistence, User} from "firebase/auth";
+import {FirebaseStorage, getStorage} from "firebase/storage";
 import {firebaseConfig} from "@/lib/firebase/config";
 
 let app: FirebaseApp | undefined;
 let auth: Auth | undefined;
+let storage: FirebaseStorage | undefined;
 
 if (typeof window !== "undefined") {
   app = getApps().length ? getApp() : initializeApp(firebaseConfig);
@@ -14,6 +16,7 @@ if (typeof window !== "undefined") {
   })
   setPersistence(auth, browserLocalPersistence)
     .catch(e => console.error("Failed to setPersistence:", e));
+  storage = getStorage(app);
 }
 
 async function updateUserToken(user: User | null) {
@@ -29,4 +32,4 @@ async function updateUserToken(user: User | null) {
   }
 }
 
-export {auth};
+export {auth, storage};

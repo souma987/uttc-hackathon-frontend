@@ -1,14 +1,12 @@
 import type {NextConfig} from "next";
 import createNextIntlPlugin from "next-intl/plugin";
 
-const imageHost = process.env.NEXT_PUBLIC_IMAGE_HOST ?? "";
-
 const nextConfig: NextConfig = {
   images: {
     remotePatterns: [
       {
         protocol: "https",
-        hostname: imageHost,
+        hostname: process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET!,
       },
     ],
   },
