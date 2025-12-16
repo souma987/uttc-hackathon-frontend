@@ -2,6 +2,7 @@ import {getTranslations} from "next-intl/server";
 import Image from "next/image";
 import Link from "next/link";
 import {fetchListingsFeed} from "@/lib/services/feed";
+import {BoxingWrapper} from "@/components/boxing-wrapper";
 
 export default async function MarketTopPage() {
   const [t, listings] = await Promise.all([
@@ -11,19 +12,19 @@ export default async function MarketTopPage() {
 
   if (listings.length === 0) {
     return (
-      <section className="mx-auto flex h-full w-full max-w-6xl flex-col items-center justify-center gap-3 py-16 text-center">
+      <BoxingWrapper as="section" className="flex h-full flex-col items-center justify-center gap-3 py-16 text-center">
         <h1 className="text-2xl font-semibold tracking-tight sm:text-3xl">
           {t("emptyState.title")}
         </h1>
         <p className="max-w-md text-sm text-muted-foreground sm:text-base">
           {t("emptyState.subtitle")}
         </p>
-      </section>
+      </BoxingWrapper>
     );
   }
 
   return (
-    <section className="mx-auto flex w-full max-w-6xl flex-col gap-6 py-8">
+    <BoxingWrapper as="section" className="flex flex-col gap-6 py-8">
       <div className="space-y-2">
         <h1 className="text-xl font-semibold tracking-tight sm:text-2xl">
           {t("heading")}
@@ -64,6 +65,6 @@ export default async function MarketTopPage() {
           </article>
         ))}
       </div>
-    </section>
+    </BoxingWrapper>
   );
 }

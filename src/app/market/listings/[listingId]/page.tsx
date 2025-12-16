@@ -4,6 +4,7 @@ import { listingsApi } from '@/lib/api/listings';
 import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
 import { ListingGallery } from './_components/listing-gallery';
+import { BoxingWrapper } from '@/components/boxing-wrapper';
 
 interface ListingDetailsPageProps {
   params: Promise<{
@@ -22,7 +23,7 @@ export default async function ListingDetailsPage({ params }: ListingDetailsPageP
   }
 
   return (
-    <div className="mx-auto w-full max-w-6xl px-4 py-8 lg:p-8">
+    <BoxingWrapper className="px-4 py-8 lg:p-8">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12">
         {/* Image Section - Left */}
         <ListingGallery images={listing.images} title={listing.title} />
@@ -72,6 +73,6 @@ export default async function ListingDetailsPage({ params }: ListingDetailsPageP
           </div>
         </div>
       </div>
-    </div>
+    </BoxingWrapper>
   );
 }
