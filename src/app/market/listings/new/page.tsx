@@ -1,7 +1,7 @@
-import { redirect } from 'next/navigation';
-import { getServerAuth } from '@/lib/firebase/server';
-import { BoxingWrapper } from '@/components/boxing-wrapper';
-import { CreateListingForm } from './_components/create-listing-form';
+import {redirect} from 'next/navigation';
+import {getServerAuth} from '@/lib/firebase/server';
+import {BoxingWrapper} from '@/components/boxing-wrapper';
+import {CreateListingForm} from './_components/create-listing-form';
 
 export default async function NewListingPage() {
   const auth = await getServerAuth();
@@ -11,10 +11,8 @@ export default async function NewListingPage() {
   }
 
   return (
-    <BoxingWrapper className="px-4 py-8 lg:p-8">
-      <div className="max-w-2xl">
-        <CreateListingForm />
-      </div>
+    <BoxingWrapper className="px-4 py-8 lg:p-8" size="sm">
+      <CreateListingForm/>
     </BoxingWrapper>
   );
 }
