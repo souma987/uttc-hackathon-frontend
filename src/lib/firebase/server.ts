@@ -14,10 +14,16 @@ export async function getServerAuth() {
     authIdToken: idToken,
     releaseOnDeref: serverCookies,
   };
-  const serverApp = initializeServerApp(firebaseConfig, appSettings);
-  const auth = getAuth(serverApp);
-  await auth.authStateReady();
-  return auth;
+  try {
+    const serverApp = initializeServerApp(firebaseConfig, appSettings);
+    const auth = getAuth(serverApp);
+
+    await auth.authStateReady();
+    return auth;
+  } catch(e) {
+    console.warn("Unable to initalize server auth:", e);
+    return null;
+  }
 }
 
 export async function setTokenCookie(token: string | null) {
@@ -31,7 +37,7 @@ export async function setTokenCookie(token: string | null) {
       httpOnly: true,
       path: '/',
       secure: process.env.NODE_ENV === 'production',
-      maxAge: 7200, // 2 hours
+      maxAge: 3600, // 1 hour
       sameSite: 'strict',
     });
   } else {

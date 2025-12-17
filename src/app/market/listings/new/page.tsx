@@ -6,7 +6,7 @@ import {CreateListingForm} from './_components/create-listing-form';
 export default async function NewListingPage() {
   const auth = await getServerAuth();
 
-  if (!auth.currentUser) {
+  if (!auth?.currentUser) {
     redirect('/auth?next=/market/listings/new');
   }
 
