@@ -1,11 +1,10 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { useTheme } from "next-themes";
-import { useTranslations } from "next-intl";
-import { Monitor, Moon, Sun } from "lucide-react";
-import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
-import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
+import {useEffect, useState} from "react";
+import {useTheme} from "next-themes";
+import {useTranslations} from "next-intl";
+import {Monitor, Moon, Sun} from "lucide-react";
+import {ToggleGroup, ToggleGroupItem} from "@/components/ui/toggle-group";
 
 const options = [
   { key: "light" as const, Icon: Sun },
@@ -30,27 +29,20 @@ export function ThemeToggleMobile() {
       onValueChange={(value) => {
         if (value) setTheme(value as typeof options[number]["key"]);
       }}
+      variant="outline"
       className="flex"
     >
       {options.map(({ key, Icon }) => {
         const label = t(`theme.${key}`);
         return (
-          <Tooltip key={key}>
-            <TooltipTrigger asChild>
-              <span> {/* Needed to consume the data-state attribute */}
-                <ToggleGroupItem
-                  value={key}
-                  aria-label={label}
-                  className="h-10 w-10 data-[state=on]:bg-accent"
-                >
-                  <Icon className="h-5 w-5" />
-                </ToggleGroupItem>
-              </span>
-            </TooltipTrigger>
-            <TooltipContent side="bottom" align="center">
-              {label}
-            </TooltipContent>
-          </Tooltip>
+          <ToggleGroupItem
+            key={key}
+            value={key}
+            aria-label={label}
+            className="h-10 w-10 data-[state=on]:bg-accent"
+          >
+            <Icon className="h-5 w-5" />
+          </ToggleGroupItem>
         );
       })}
     </ToggleGroup>
