@@ -18,7 +18,7 @@ export function Header() {
 
   const navItems = [
     { href: "/market", label: t("nav.browse") },
-    { href: "/market/sell", label: t("nav.sell") },
+    { href: "/market/listings/new", label: t("nav.sell") },
     { href: "/market/messages", label: t("nav.messages") },
   ];
 

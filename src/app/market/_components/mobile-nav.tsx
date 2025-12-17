@@ -21,7 +21,7 @@ export function MobileNav() {
 
   const navItems = [
     { href: "/market", label: t("nav.browse"), Icon: LayoutGrid },
-    { href: "/market/sell", label: t("nav.sell"), Icon: Store },
+    { href: "/market/listings/new", label: t("nav.sell"), Icon: Store },
     { href: "/market/messages", label: t("nav.messages"), Icon: MessageSquare },
   ];
 
