@@ -89,7 +89,22 @@
         "quantityLabel": "出品数",
         "quantityPlaceholder": "1",
         "cancel": "キャンセル",
-        "publish": "出品する"
+        "publish": "出品する",
+        "saveDraft": "下書き保存",
+        "submitting": "送信中...",
+        "toastSuccess": "出品が作成されました",
+        "errorGeneric": "出品の作成に失敗しました。もう一度お試しください。",
+        "errors": {
+          "titleRequired": "タイトルは必須です",
+          "titleMinLength": "タイトルは3文字以上で入力してください",
+          "imagesRequired": "少なくとも1枚の画像が必要です",
+          "priceRequired": "価格は必須です",
+          "priceMin": "価格は最低¥100以上で入力してください",
+          "priceInvalid": "有効な価格を入力してください",
+          "quantityMin": "出品数は1以上で入力してください",
+          "quantityInvalid": "有効な数量を入力してください",
+          "conditionRequired": "商品の状態を選択してください"
+        }
       }
     }
   },

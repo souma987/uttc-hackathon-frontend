@@ -89,7 +89,22 @@
         "quantityLabel": "Quantity",
         "quantityPlaceholder": "1",
         "cancel": "Cancel",
-        "publish": "Publish Listing"
+        "publish": "Publish Listing",
+        "saveDraft": "Save as Draft",
+        "submitting": "Publishing...",
+        "toastSuccess": "Listing created successfully",
+        "errorGeneric": "Failed to create listing. Please try again.",
+        "errors": {
+          "titleRequired": "Title is required",
+          "titleMinLength": "Title must be at least 3 characters",
+          "imagesRequired": "At least one image is required",
+          "priceRequired": "Price is required",
+          "priceMin": "Price must be at least ¥100",
+          "priceInvalid": "Please enter a valid price",
+          "quantityMin": "Quantity must be at least 1",
+          "quantityInvalid": "Please enter a valid quantity",
+          "conditionRequired": "Condition is required"
+        }
       }
     }
   },

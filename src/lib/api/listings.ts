@@ -40,6 +40,7 @@ export type CreateListingRequest = {
   price: number;
   quantity?: number;
   item_condition?: ItemCondition;
+  is_active: boolean,
 };
 
 // GET /listings/feed — fetches active listings feed

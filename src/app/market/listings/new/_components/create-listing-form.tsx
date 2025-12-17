@@ -1,80 +1,50 @@
 'use client';
 
-import { useState } from 'react';
-import { useTranslations } from 'next-intl';
-import { uploadImage } from '@/lib/services/storage';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Textarea } from '@/components/ui/textarea';
-import { Label } from '@/components/ui/label';
-import { FieldSet, FieldGroup, FieldLegend } from '@/components/ui/field';
-import { InputGroup, InputGroupAddon, InputGroupInput } from '@/components/ui/input-group';
-import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
-import { Separator } from '@/components/ui/separator';
-import { Spinner } from '@/components/ui/spinner';
+import {useTranslations} from 'next-intl';
+import {useRouter} from 'next/navigation';
+import {MIN_PRICE, useCreateListing} from '@/app/market/listings/new/_hooks/use-create-listing';
+import {Button} from '@/components/ui/button';
+import {Input} from '@/components/ui/input';
+import {Textarea} from '@/components/ui/textarea';
+import {Label} from '@/components/ui/label';
+import {FieldGroup, FieldLegend, FieldSet} from '@/components/ui/field';
+import {InputGroup, InputGroupAddon, InputGroupInput} from '@/components/ui/input-group';
+import {RadioGroup, RadioGroupItem} from '@/components/ui/radio-group';
+import {Separator} from '@/components/ui/separator';
+import {Spinner} from '@/components/ui/spinner';
 import Image from 'next/image';
-import { X } from 'lucide-react';
-
-interface UploadSlot {
-  id: string;
-  imageUrl: string | null;
-  isLoading: boolean;
-}
+import {X} from 'lucide-react';
+import React from "react";
 
 export function CreateListingForm() {
   const t = useTranslations('market.listing.create');
-  const [uploadedImages, setUploadedImages] = useState<UploadSlot[]>([]);
-  const [title, setTitle] = useState('');
-  const [description, setDescription] = useState('');
-  const [price, setPrice] = useState('');
-  const [condition, setCondition] = useState('');
-  const [quantity, setQuantity] = useState('1');
+  const router = useRouter();
+  const {
+    formData,
+    uploadedImages,
+    errors,
+    isSubmitting,
+    updateField,
+    handleImageUpload,
+    removeImage,
+    submit,
+  } = useCreateListing(t);
 
-  const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    const inputElement = e.currentTarget;
-    const files = inputElement.files;
-    if (!files) return;
-
-    // Create placeholder slots for all files immediately
-    const newSlots: UploadSlot[] = Array.from(files).map((file) => ({
-      id: `${file.name}-${Date.now()}-${Math.random()}`,
-      imageUrl: null,
-      isLoading: true,
-    }));
-
-    setUploadedImages((prev) => [...prev, ...newSlots]);
-
-    try {
-      for (let i = 0; i < files.length; i++) {
-        const file = files[i];
-        const imageUrl = await uploadImage(file);
-
-        setUploadedImages((prev) => {
-          const updated = [...prev];
-          const startIndex = prev.length - files.length;
-          const slotIndex = startIndex + i;
-
-          if (imageUrl) {
-            updated[slotIndex] = { ...updated[slotIndex], imageUrl, isLoading: false };
-          } else {
-            // Remove failed uploads
-            updated.splice(slotIndex, 1);
-          }
-          return updated;
-        });
-      }
-    } finally {
-      // Reset the input
-      inputElement.value = '';
-    }
+  const handleFormSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    await submit(true);
   };
 
-  const removeImage = (id: string) => {
-    setUploadedImages((prev) => prev.filter((slot) => slot.id !== id));
+  const handleCancel = () => {
+    router.push('/market');
+  };
+
+  const handleImageInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    void handleImageUpload(e.target.files);
   };
 
   return (
-    <form className="space-y-8">
+    <form onSubmit={handleFormSubmit} className="space-y-8">
       <div>
         <h1 className="text-3xl font-bold tracking-tight mb-2">{t('title')}</h1>
         <p className="text-muted-foreground">{t('subtitle')}</p>
@@ -91,7 +61,7 @@ export function CreateListingForm() {
               type="file"
               multiple
               accept="image/*"
-              onChange={handleImageUpload}
+              onChange={handleImageInputChange}
               className="hidden"
               id="image-upload"
             />
@@ -140,6 +110,9 @@ export function CreateListingForm() {
               ))}
             </div>
           )}
+          {errors.images && (
+            <p className="text-sm text-destructive">{errors.images}</p>
+          )}
         </FieldGroup>
       </FieldSet>
 
@@ -153,9 +126,14 @@ export function CreateListingForm() {
             id="title"
             type="text"
             placeholder={t('titlePlaceholder')}
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
+            value={formData.title}
+            onChange={(e) => updateField('title', e.target.value)}
+            aria-invalid={!!errors.title}
+            required
           />
+          {errors.title && (
+            <p className="text-sm text-destructive">{errors.title}</p>
+          )}
         </FieldGroup>
       </FieldSet>
 
@@ -166,8 +144,8 @@ export function CreateListingForm() {
           <Textarea
             id="description"
             placeholder={t('descriptionPlaceholder')}
-            value={description}
-            onChange={(e) => setDescription(e.target.value)}
+            value={formData.description}
+            onChange={(e) => updateField('description', e.target.value)}
           />
         </FieldGroup>
       </FieldSet>
@@ -181,41 +159,17 @@ export function CreateListingForm() {
             <InputGroupInput
               id="price"
               type="number"
-              placeholder="100"
-              value={price}
-              onChange={(e) => setPrice(e.target.value)}
-              min="100"
+              placeholder={String(MIN_PRICE)}
+              min={MIN_PRICE}
+              value={formData.price}
+              onChange={(e) => updateField('price', e.target.value)}
+              aria-invalid={!!errors.price}
+              required
             />
           </InputGroup>
-        </FieldGroup>
-      </FieldSet>
-
-      {/* Condition Field */}
-      <FieldSet>
-        <FieldGroup>
-          <Label>{t('conditionLabel')}</Label>
-          <RadioGroup value={condition} onValueChange={setCondition}>
-            <div className="flex items-center gap-2">
-              <RadioGroupItem value="new" id="condition-new" />
-              <Label htmlFor="condition-new" className="cursor-pointer">{t('conditions.new')}</Label>
-            </div>
-            <div className="flex items-center gap-2">
-              <RadioGroupItem value="excellent" id="condition-excellent" />
-              <Label htmlFor="condition-excellent" className="cursor-pointer">{t('conditions.excellent')}</Label>
-            </div>
-            <div className="flex items-center gap-2">
-              <RadioGroupItem value="good" id="condition-good" />
-              <Label htmlFor="condition-good" className="cursor-pointer">{t('conditions.good')}</Label>
-            </div>
-            <div className="flex items-center gap-2">
-              <RadioGroupItem value="not_good" id="condition-not-good" />
-              <Label htmlFor="condition-not-good" className="cursor-pointer">{t('conditions.not_good')}</Label>
-            </div>
-            <div className="flex items-center gap-2">
-              <RadioGroupItem value="bad" id="condition-bad" />
-              <Label htmlFor="condition-bad" className="cursor-pointer">{t('conditions.bad')}</Label>
-            </div>
-          </RadioGroup>
+          {errors.price && (
+            <p className="text-sm text-destructive">{errors.price}</p>
+          )}
         </FieldGroup>
       </FieldSet>
 
@@ -227,10 +181,60 @@ export function CreateListingForm() {
             id="quantity"
             type="number"
             placeholder={t('quantityPlaceholder')}
-            value={quantity}
-            onChange={(e) => setQuantity(e.target.value)}
             min="1"
+            value={formData.quantity}
+            onChange={(e) => updateField('quantity', e.target.value)}
+            aria-invalid={!!errors.quantity}
+            required
           />
+          {errors.quantity && (
+            <p className="text-sm text-destructive">{errors.quantity}</p>
+          )}
+        </FieldGroup>
+      </FieldSet>
+
+      {/* Condition Field */}
+      <FieldSet>
+        <FieldGroup>
+          <Label>{t('conditionLabel')}</Label>
+          <RadioGroup
+            value={formData.condition}
+            onValueChange={(value) => updateField('condition', value)}
+          >
+            <div className="flex items-center gap-2">
+              <RadioGroupItem value="new" id="condition-new" />
+              <Label htmlFor="condition-new" className="cursor-pointer">
+                {t('conditions.new')}
+              </Label>
+            </div>
+            <div className="flex items-center gap-2">
+              <RadioGroupItem value="excellent" id="condition-excellent" />
+              <Label htmlFor="condition-excellent" className="cursor-pointer">
+                {t('conditions.excellent')}
+              </Label>
+            </div>
+            <div className="flex items-center gap-2">
+              <RadioGroupItem value="good" id="condition-good" />
+              <Label htmlFor="condition-good" className="cursor-pointer">
+                {t('conditions.good')}
+              </Label>
+            </div>
+            <div className="flex items-center gap-2">
+              <RadioGroupItem value="not_good" id="condition-not-good" />
+              <Label htmlFor="condition-not-good" className="cursor-pointer">
+                {t('conditions.not_good')}
+              </Label>
+            </div>
+            <div className="flex items-center gap-2">
+              <RadioGroupItem value="bad" id="condition-bad" />
+              <Label htmlFor="condition-bad" className="cursor-pointer">
+                {t('conditions.bad')}
+              </Label>
+            </div>
+          </RadioGroup>
+          {errors.condition && (
+            <p className="text-sm text-destructive">{errors.condition}</p>
+          )}
         </FieldGroup>
       </FieldSet>
 
@@ -238,8 +242,25 @@ export function CreateListingForm() {
 
       {/* Action Buttons */}
       <div className="flex gap-3 justify-end">
-        <Button variant="outline">{t('cancel')}</Button>
-        <Button>{t('publish')}</Button>
+        <Button
+          type="button"
+          variant="outline"
+          onClick={handleCancel}
+          disabled={isSubmitting}
+        >
+          {t('cancel')}
+        </Button>
+        <Button
+          type="button"
+          variant="secondary"
+          onClick={() => submit(false)}
+          disabled={isSubmitting}
+        >
+          {t('saveDraft')}
+        </Button>
+        <Button type="submit" disabled={isSubmitting}>
+          {isSubmitting ? t('submitting') : t('publish')}
+        </Button>
       </div>
     </form>
   );
