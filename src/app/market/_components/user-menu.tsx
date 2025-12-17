@@ -28,7 +28,7 @@ export function UserMenu() {
   if (!dbUser) {
     return (
       <Link href="/auth">
-        <Button variant="outline" className="h-9">{tAuth("tabs.signIn")}</Button>
+        <Button className="h-9">{tAuth("tabs.signIn")}</Button>
       </Link>
     );
   }
@@ -45,7 +45,6 @@ export function UserMenu() {
     try {
       await signOutCurrentUser();
     } catch (e) {
-      // Keep errors silent in UI for hackathon scope; console for debugging
       console.error("Logout failed", e);
     }
   };
