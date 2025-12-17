@@ -65,6 +65,31 @@
         "active": "Active",
         "sold": "Sold",
         "draft": "Draft"
+      },
+      "create": {
+        "title": "Create a New Listing",
+        "subtitle": "Share your items with the community marketplace",
+        "images": "Images",
+        "uploadPrompt": "Drag and drop images here or click to select",
+        "uploadHint": "You can upload multiple images (JPEG, PNG, WebP)",
+        "titleLabel": "Title",
+        "titlePlaceholder": "What are you selling?",
+        "descriptionLabel": "Description",
+        "descriptionPlaceholder": "Describe your item in detail...",
+        "priceLabel": "Price",
+        "conditionLabel": "Condition",
+        "conditionPlaceholder": "Select the condition of your item",
+        "conditions": {
+          "new": "New",
+          "excellent": "Excellent",
+          "good": "Good",
+          "not_good": "Fair",
+          "bad": "Poor"
+        },
+        "quantityLabel": "Quantity",
+        "quantityPlaceholder": "1",
+        "cancel": "Cancel",
+        "publish": "Publish Listing"
       }
     }
   },

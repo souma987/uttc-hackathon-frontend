@@ -65,6 +65,31 @@
         "active": "販売中",
         "sold": "売り切れ",
         "draft": "下書き"
+      },
+      "create": {
+        "title": "新規出品を作成",
+        "subtitle": "コミュニティマーケットにあなたのアイテムを出品しましょう",
+        "images": "画像",
+        "uploadPrompt": "画像をドラッグ＆ドロップ、またはクリックして選択",
+        "uploadHint": "複数の画像をアップロードできます（JPEG / PNG / WebP）",
+        "titleLabel": "タイトル",
+        "titlePlaceholder": "何を出品しますか？",
+        "descriptionLabel": "商品説明",
+        "descriptionPlaceholder": "商品の詳細を記載してください…",
+        "priceLabel": "価格",
+        "conditionLabel": "商品の状態",
+        "conditionPlaceholder": "状態を選択",
+        "conditions": {
+          "new": "新品",
+          "excellent": "未使用に近い",
+          "good": "目立った傷や汚れなし",
+          "not_good": "やや傷や汚れあり",
+          "bad": "全体的に状態が悪い"
+        },
+        "quantityLabel": "出品数",
+        "quantityPlaceholder": "1",
+        "cancel": "キャンセル",
+        "publish": "出品する"
       }
     }
   },
