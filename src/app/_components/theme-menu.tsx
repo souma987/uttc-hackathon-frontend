@@ -1,16 +1,11 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
-import { useTheme } from "next-themes";
-import { useTranslations } from "next-intl";
-import { Monitor, Moon, Sun, Check } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
+import {useEffect, useState} from "react";
+import {useTheme} from "next-themes";
+import {useTranslations} from "next-intl";
+import {Check, Monitor, Moon, Sun} from "lucide-react";
+import {Button} from "@/components/ui/button";
+import {DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger,} from "@/components/ui/dropdown-menu";
 
 const options = [
   { key: "light" as const, Icon: Sun },
@@ -20,25 +15,18 @@ const options = [
 
 export function ThemeMenu() {
   const t = useTranslations("market.header");
-  const { theme, setTheme, systemTheme } = useTheme();
+  const {theme, setTheme} = useTheme();
   const [mounted, setMounted] = useState(false);
 
   // eslint-disable-next-line react-hooks/set-state-in-effect
   useEffect(() => setMounted(true), []);
 
-  // What user selected (persisted to localStorage). Defaults to system.
-  const selected = (theme ?? "system") as typeof options[number]["key"];
+  // avoid hydration issues
+  const selected = mounted ? (theme ?? "system") as typeof options[number]["key"] : "system";
 
-  // What is actually rendered (resolved from OS when on system).
-  const resolved = useMemo(() => {
-    if (!mounted) return "system" as const;
-    if (selected === "system") {
-      return (systemTheme ?? "system") as typeof options[number]["key"];
-    }
-    return selected;
-  }, [mounted, selected, systemTheme]);
-
-  const ActiveIcon = options.find(({ key }) => key === resolved)?.Icon ?? Sun;
+  const ActiveIcon = options.find(
+    ({ key }) => key === selected
+  )?.Icon ?? Sun;
 
   return (
     <DropdownMenu>
