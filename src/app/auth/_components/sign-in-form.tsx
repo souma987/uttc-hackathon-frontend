@@ -90,10 +90,6 @@ export function SignInForm({ redirectPath = "/market" }: SignInFormProps) {
           name="password"
           rules={{
             required: t("errors.passwordRequired"),
-            minLength: {
-              value: 6,
-              message: t("errors.passwordMinLength"),
-            },
           }}
           render={({ field }) => (
             <FormItem>

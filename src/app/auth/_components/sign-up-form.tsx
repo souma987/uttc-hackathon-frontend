@@ -95,7 +95,7 @@ export function SignUpForm({ redirectPath = "/market" }: SignUpFormProps) {
             required: t("errors.passwordRequired"),
             minLength: {
               value: 8,
-              message: t("errors.passwordMinLength"),
+              message: t("errors.passwordMinLength", {minLength: 8}),
             },
           }}
           render={({ field }) => (
