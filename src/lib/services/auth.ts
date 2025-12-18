@@ -1,6 +1,4 @@
-﻿'use client';
-
-import { auth } from "../firebase/browser";
+﻿import { firebase } from "@/lib/firebase/common";
 import { onAuthStateChanged, signInWithEmailAndPassword, signOut, type User, type UserCredential } from "firebase/auth";
 import { userApi, type CreateUserRequest, type DbUser } from "../api/user";
 
@@ -10,22 +8,22 @@ export type SignInResult = {
 
 // Email/Password sign in (client-only)
 export async function signInWithEmailPassword(email: string, password: string): Promise<SignInResult> {
-  if (typeof window === "undefined" || !auth) {
-    throw new Error("Auth is only available in the browser");
+  if (typeof window === "undefined" || !firebase.auth) {
+    throw new Error("Signin is only available in the browser");
   }
 
-  const userCredential = await signInWithEmailAndPassword(auth, email, password);
+  const userCredential = await signInWithEmailAndPassword(firebase.auth, email, password);
   return { userCredential };
 }
 
 // Sign out current user (client-only)
 export async function signOutCurrentUser(): Promise<void> {
-  if (typeof window === "undefined" || !auth) {
+  if (typeof window === "undefined" || !firebase.auth) {
     // No-op on server; keep it explicit to avoid silent misuse
     throw new Error("Auth is only available in the browser");
   }
 
-  await signOut(auth);
+  await signOut(firebase.auth);
 }
 
 export type SignUpParams = CreateUserRequest;
@@ -55,13 +53,13 @@ export type DBUser = DbUser;
 export function subscribeToAuthChanges(
   onUserChange: (user: User | null) => void,
 ): () => void {
-  if (typeof window === "undefined" || !auth) {
+  if (typeof window === "undefined" || !firebase.auth) {
     // No-op unsubscribe when running on server
     return () => undefined;
   }
 
   return onAuthStateChanged(
-    auth,
+    firebase.auth,
     (user) => onUserChange(user),
   );
 }
@@ -77,9 +75,9 @@ export async function fetchCurrentUserFromBackend(): Promise<DBUser> {
 }
 
 export async function awaitCurrentUser(): Promise<User | null> {
-  if (typeof window === "undefined" || !auth) {
-    throw new Error("Auth is only available in the browser");
+  if (!firebase.auth) {
+    throw new Error("Auth unavailable");
   }
-  await auth.authStateReady();
-  return auth.currentUser;
+  await firebase.auth.authStateReady();
+  return firebase.auth.currentUser;
 }

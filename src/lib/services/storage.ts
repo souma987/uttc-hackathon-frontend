@@ -1,7 +1,6 @@
 ﻿import {ref, uploadBytes} from "firebase/storage";
-import {storage} from "@/lib/firebase/browser";
+import {firebase, firebaseConfig} from "@/lib/firebase/common";
 import {awaitCurrentUser} from "@/lib/services/auth";
-import {firebaseConfig} from "@/lib/firebase/config";
 
 export async function uploadImage(file: File) {
   const contentType = file.type;
@@ -10,8 +9,8 @@ export async function uploadImage(file: File) {
     return null;
   }
 
-  if (!storage) {
-    console.error("Firebase storage is not available");
+  if (!firebase.storage) {
+    console.error("Firebase storage not available");
     return null;
   }
 
@@ -23,7 +22,7 @@ export async function uploadImage(file: File) {
 
   const uniqueName = `${crypto.randomUUID()}.${getFileExtension(file.name)}`;
   const storagePath = `users/${user.uid}/${uniqueName}`
-  const storageRef = ref(storage, storagePath);
+  const storageRef = ref(firebase.storage, storagePath);
 
   const metadata = {
     contentType,

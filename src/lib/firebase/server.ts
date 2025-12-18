@@ -1,5 +1,5 @@
 ﻿import {FirebaseServerAppSettings, initializeServerApp} from "firebase/app";
-import {firebaseConfig} from "@/lib/firebase/config";
+import {firebase, firebaseConfig} from "./common";
 import {getAuth} from "firebase/auth";
 import {cookies} from "next/headers";
 
@@ -17,8 +17,9 @@ export async function getServerAuth() {
   try {
     const serverApp = initializeServerApp(firebaseConfig, appSettings);
     const auth = getAuth(serverApp);
-
     await auth.authStateReady();
+
+    firebase.auth = auth;
     return auth;
   } catch(e) {
     console.warn("Unable to initalize server auth:", e);
@@ -27,7 +28,7 @@ export async function getServerAuth() {
 }
 
 export async function setTokenCookie(token: string | null) {
-  if (typeof window !== "undefined") throw new Error("Cannot use getServerAuth on browser");
+  if (typeof window !== "undefined") throw new Error("Cannot set auth cookies on browser");
 
   const serverCookies = await cookies();
   if (token) {

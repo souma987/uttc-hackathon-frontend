@@ -1,22 +1,19 @@
-﻿import {FirebaseApp, getApp, getApps, initializeApp} from "firebase/app";
-import {Auth, browserLocalPersistence, getAuth, setPersistence, User} from "firebase/auth";
-import {FirebaseStorage, getStorage} from "firebase/storage";
-import {firebaseConfig} from "@/lib/firebase/config";
+﻿import {getApp, getApps, initializeApp} from "firebase/app";
+import {browserLocalPersistence, getAuth, setPersistence, User} from "firebase/auth";
+import {getStorage} from "firebase/storage";
+import {firebase, firebaseConfig} from "./common";
 
-let app: FirebaseApp | undefined;
-let auth: Auth | undefined;
-let storage: FirebaseStorage | undefined;
-
-if (typeof window !== "undefined") {
-  app = getApps().length ? getApp() : initializeApp(firebaseConfig);
-  auth = getAuth(app);
-  auth.onIdTokenChanged((user) => {
+export function tryInitializeBrowserAuth() {
+  if (typeof window === "undefined") return;
+  const app = getApps().length ? getApp() : initializeApp(firebaseConfig);
+  firebase.auth = getAuth(app);
+  firebase.auth.onIdTokenChanged((user) => {
     updateUserToken(user)
       .then(() => console.log("Successfully set auth token cookie"))
   })
-  setPersistence(auth, browserLocalPersistence)
+  setPersistence(firebase.auth, browserLocalPersistence)
     .catch(e => console.error("Failed to setPersistence:", e));
-  storage = getStorage(app);
+  firebase.storage = getStorage(app);
 }
 
 async function updateUserToken(user: User | null) {
@@ -28,8 +25,6 @@ async function updateUserToken(user: User | null) {
     });
   } catch (e) {
     console.error("Failed to update auth token:", e);
-    await auth?.signOut();
+    await firebase.auth?.signOut();
   }
 }
-
-export {auth, storage};
