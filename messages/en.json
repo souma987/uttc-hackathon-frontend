@@ -12,6 +12,12 @@
     "documentation": "Documentation"
   },
   "market": {
+    "user": {
+      "title": "Profile",
+      "notFound": "User not found",
+      "noNameSet": "No name set",
+      "sendMessage": "Send message"
+    },
     "header": {
       "logo": "Marketplace",
       "languageLabel": "Language",

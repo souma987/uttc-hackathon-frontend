@@ -21,6 +21,7 @@
 - [ ] **Direct Messaging**
         - [x] **Chat System (MVP)**: Persistent messaging between buyers and sellers.
     - [x] **Messages Inbox**: Latest conversations list at `/market/messages` with avatar, name, and truncated preview.
+    - [x] **Public User Profile View**: SSR profile page at `/market/users/[userId]` showing avatar and name.
 
 ## AI Integrations
 - [ ] **Generative AI Feature**

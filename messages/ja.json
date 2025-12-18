@@ -12,6 +12,12 @@
     "documentation": "ドキュメント"
   },
   "market": {
+    "user": {
+      "title": "プロフィール",
+      "notFound": "ユーザーが見つかりません",
+      "noNameSet": "名前未設定",
+      "sendMessage": "メッセージを送る"
+    },
     "header": {
       "logo": "マーケットプレイス",
       "languageLabel": "言語",

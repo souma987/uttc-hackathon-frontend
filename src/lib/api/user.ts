@@ -13,6 +13,12 @@ export type DbUser = {
   avatar_url?: string;
 };
 
+export type UserProfile = {
+  id: string;
+  name: string;
+  avatar_url: string;
+};
+
 // POST /users — registers a new user
 async function createUser(payload: CreateUserRequest): Promise<DbUser> {
   const response = await apiClient.post<DbUser>('/users', payload, {
@@ -32,7 +38,24 @@ async function getMe(idToken: string): Promise<DbUser> {
   return response.data;
 }
 
+// GET /users/{userId}/profile — returns the public profile for a user
+async function getUserProfile(userId: string): Promise<UserProfile | null> {
+  const response = await apiClient.get<UserProfile>(
+    `/users/${userId}/profile`,
+    {
+      validateStatus: (status) => status === 200 || status === 404,
+    }
+  );
+
+  if (response.status === 404) {
+    return null;
+  }
+
+  return response.data;
+}
+
 export const userApi = {
   createUser,
   getMe,
+  getUserProfile,
 };
