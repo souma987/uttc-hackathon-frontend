@@ -1,9 +1,11 @@
-import { notFound, redirect } from 'next/navigation';
-import { getTranslations, getLocale } from 'next-intl/server';
-import { getServerAuth } from '@/lib/firebase/server';
-import { fetchOrder } from '@/lib/services/orders';
-import { BoxingWrapper } from '@/components/boxing-wrapper';
-import { Separator } from '@/components/ui/separator';
+import {notFound, redirect} from 'next/navigation';
+import {getLocale, getTranslations} from 'next-intl/server';
+import {getServerAuth} from '@/lib/firebase/server';
+import {fetchOrder} from '@/lib/services/orders';
+import {getPublicUserProfile} from '@/lib/services/users';
+import {BoxingWrapper} from '@/components/boxing-wrapper';
+import {Separator} from '@/components/ui/separator';
+import {UserInfoRow} from './_components/user-info-row';
 import Image from 'next/image';
 
 type PageProps = {
@@ -37,6 +39,10 @@ export default async function OrderDetailsPage({ params }: PageProps) {
   if (!isBuyer && !isSeller) {
     notFound();
   }
+
+  // Fetch the seller or buyer profile
+  const otherUserId = isBuyer ? order.seller_id : order.buyer_id;
+  const otherUserProfile = await getPublicUserProfile(otherUserId);
 
   // Format dates
   const orderDate = new Date(order.created_at).toLocaleDateString(locale, {
@@ -165,6 +171,13 @@ export default async function OrderDetailsPage({ params }: PageProps) {
             </h2>
 
             <div className="space-y-4">
+              <div className="flex justify-between items-center">
+                <span className="text-muted-foreground">{t('profile')}</span>
+                <div>
+                  <UserInfoRow user={otherUserProfile} />
+                </div>
+              </div>
+
               <div className="flex justify-between items-center">
                 <span className="text-muted-foreground">{t('orderDate')}</span>
                 <span className="font-medium">{orderDate}</span>

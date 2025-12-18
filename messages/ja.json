@@ -154,6 +154,7 @@
       "platformFee": "プラットフォーム手数料",
       "netPayout": "純売上金額",
       "status": "ステータス",
+      "profile": "プロフィール",
       "orderDate": "注文日",
       "lastUpdated": "最終更新",
       "statuses": {

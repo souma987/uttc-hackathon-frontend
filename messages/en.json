@@ -154,6 +154,7 @@
       "platformFee": "Platform Fee",
       "netPayout": "Net Payout",
       "status": "Status",
+      "profile": "Profile",
       "orderDate": "Order Date",
       "lastUpdated": "Last Updated",
       "statuses": {
