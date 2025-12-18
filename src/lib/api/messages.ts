@@ -1,0 +1,55 @@
+import apiClient from './client';
+
+export type Message = {
+  id: string;
+  sender_id: string;
+  receiver_id: string;
+  content: string;
+  created_at: string;
+  updated_at?: string;
+};
+
+export type CreateMessageRequest = {
+  receiver_id: string;
+  content: string;
+};
+
+// GET /messages/with/{userId} — fetches conversation messages with a specific user
+// Required headers:
+//   - Authorization: Bearer <Firebase ID token>
+export async function getMessagesWithUser(
+  idToken: string,
+  userId: string
+): Promise<Message[]> {
+  const response = await apiClient.get<Message[]>(`/messages/with/${userId}`, {
+    headers: {
+      Authorization: `Bearer ${idToken}`,
+    },
+    validateStatus: (status) => status === 200,
+  });
+
+  return response.data;
+}
+
+// POST /messages — creates a new message
+// Required headers:
+//   - Authorization: Bearer <Firebase ID token>
+//   - Content-Type: application/json (set by apiClient)
+export async function createMessage(
+  idToken: string,
+  payload: CreateMessageRequest
+): Promise<Message> {
+  const response = await apiClient.post<Message>('/messages', payload, {
+    headers: {
+      Authorization: `Bearer ${idToken}`,
+    },
+    validateStatus: (status) => status === 201,
+  });
+
+  return response.data;
+}
+
+export const messagesApi = {
+  createMessage,
+  getMessagesWithUser,
+};
