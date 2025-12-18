@@ -66,6 +66,21 @@
         "sold": "Sold",
         "draft": "Draft"
       },
+      "purchase": {
+        "title": "Confirm purchase",
+        "subtitle": "Enter how many items you want to buy.",
+        "quantityLabel": "Quantity",
+        "quantityPlaceholder": "e.g. 1",
+        "confirm": "Confirm order",
+        "cancel": "Cancel",
+        "submitting": "Placing order...",
+        "toastSuccess": "Order created! Redirecting to details...",
+        "toastError": "Couldn't place the order. Please try again.",
+        "authRequired": "Sign in to buy this listing.",
+        "errors": {
+          "invalidQuantity": "Enter a quantity between 1 and {max}."
+        }
+      },
       "create": {
         "title": "Create a New Listing",
         "subtitle": "Share your items with the community marketplace",

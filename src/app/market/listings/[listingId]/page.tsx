@@ -1,10 +1,10 @@
 import { notFound } from 'next/navigation';
 import { getTranslations } from 'next-intl/server';
 import { listingsApi } from '@/lib/api/listings';
-import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
 import { ListingGallery } from './_components/listing-gallery';
 import { BoxingWrapper } from '@/components/boxing-wrapper';
+import { PurchaseDialog } from './_components/purchase-dialog';
 
 export default async function ListingDetailsPage({ params }: PageProps<'/market/listings/[listingId]'>) {
   const { listingId } = await params;
@@ -51,9 +51,7 @@ export default async function ListingDetailsPage({ params }: PageProps<'/market/
             </div>
 
             <div className="flex flex-col justify-end">
-              <Button size="lg" className="w-full text-lg py-6" disabled={listing.status !== 'active'}>
-                {listing.status === 'active' ? t('buyNow') : t('soldOut')}
-              </Button>
+              <PurchaseDialog listing={listing} />
             </div>
           </div>
 

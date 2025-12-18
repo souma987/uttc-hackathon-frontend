@@ -66,6 +66,21 @@
         "sold": "売り切れ",
         "draft": "下書き"
       },
+      "purchase": {
+        "title": "購入内容を確認",
+        "subtitle": "購入する数量を入力してください。",
+        "quantityLabel": "購入数量",
+        "quantityPlaceholder": "例: 1",
+        "confirm": "注文を確定",
+        "cancel": "キャンセル",
+        "submitting": "注文処理中...",
+        "toastSuccess": "注文を作成しました。詳細ページに移動します。",
+        "toastError": "注文の作成に失敗しました。もう一度お試しください。",
+        "authRequired": "購入するにはログインしてください。",
+        "errors": {
+          "invalidQuantity": "1から{max}の間で数量を入力してください。"
+        }
+      },
       "create": {
         "title": "新規出品を作成",
         "subtitle": "コミュニティマーケットにあなたのアイテムを出品しましょう",
