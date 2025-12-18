@@ -108,6 +108,12 @@
       }
     }
   },
+  "chat": {
+    "emptyState": "No messages yet",
+    "inputPlaceholder": "Type a message...",
+    "send": "Send",
+    "sending": "Sending..."
+  },
   "auth": {
     "title": "Welcome",
     "subtitle": "Sign in to your account or create a new one",
