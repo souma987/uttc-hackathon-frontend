@@ -97,6 +97,16 @@
         "titlePlaceholder": "What are you selling?",
         "descriptionLabel": "Description",
         "descriptionPlaceholder": "Describe your item in detail...",
+        "suggestions": {
+          "title": "Suggested details",
+          "subtitle": "Here are fields you might want to add.",
+          "prompt": "Start typing a description to see ideas.",
+          "moreDetail": "Add a bit more detail and we'll suggest helpful fields.",
+          "loading": "Generating suggestions...",
+          "error": "Couldn't fetch suggestions. Try again.",
+          "refreshing": "Refreshing...",
+          "none": "No extra suggestions right now—your description looks clear."
+        },
         "priceLabel": "Price",
         "conditionLabel": "Condition",
         "conditionPlaceholder": "Select the condition of your item",

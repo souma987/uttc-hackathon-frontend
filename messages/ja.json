@@ -97,6 +97,16 @@
         "titlePlaceholder": "何を出品しますか？",
         "descriptionLabel": "商品説明",
         "descriptionPlaceholder": "商品の詳細を記載してください…",
+        "suggestions": {
+          "title": "入力候補",
+          "subtitle": "説明文に追記すると良さそうな項目を提案します。",
+          "prompt": "説明文を入力すると提案が表示されます。",
+          "moreDetail": "もう少し詳しく書くと、追記すると良い項目を提案します。",
+          "loading": "提案を生成中...",
+          "error": "提案の取得に失敗しました。もう一度お試しください。",
+          "refreshing": "再読み込み中...",
+          "none": "今の説明なら追加の提案はありません。"
+        },
         "priceLabel": "価格",
         "conditionLabel": "商品の状態",
         "conditionPlaceholder": "状態を選択",

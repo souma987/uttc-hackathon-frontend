@@ -1,8 +1,9 @@
 'use client';
 
-import {useTranslations} from 'next-intl';
+import {useLocale, useTranslations} from 'next-intl';
 import {useRouter} from 'next/navigation';
 import {MIN_PRICE, useCreateListing} from '@/app/market/listings/new/_hooks/use-create-listing';
+import {useListingSuggestions} from '@/app/market/listings/new/_hooks/use-listing-suggestions';
 import {Button} from '@/components/ui/button';
 import {Input} from '@/components/ui/input';
 import {Textarea} from '@/components/ui/textarea';
@@ -18,6 +19,7 @@ import React from "react";
 
 export function CreateListingForm() {
   const t = useTranslations('market.listing.create');
+  const locale = useLocale();
   const router = useRouter();
   const {
     formData,
@@ -29,6 +31,21 @@ export function CreateListingForm() {
     removeImage,
     submit,
   } = useCreateListing(t);
+
+  const suggestionLanguage = locale === 'ja' ? 'ja' : 'en';
+
+  const {
+    suggestions,
+    isLoading: isLoadingSuggestions,
+    error: suggestionsError,
+    hasInput: hasDescriptionInput,
+    hasMinimumInput: hasMinimumDescription,
+  } = useListingSuggestions({
+    title: formData.title,
+    description: formData.description,
+    condition: formData.condition,
+    language: suggestionLanguage,
+  });
 
   const handleFormSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -147,6 +164,40 @@ export function CreateListingForm() {
             value={formData.description}
             onChange={(e) => updateField('description', e.target.value)}
           />
+          <div className="mt-3 rounded-lg border bg-muted/40 p-3">
+            <div className="flex items-center justify-between gap-3">
+              <div className="space-y-1">
+                <p className="text-sm font-medium">{t('suggestions.title')}</p>
+                <p className="text-xs text-muted-foreground">
+                  {isLoadingSuggestions
+                    ? t('suggestions.loading')
+                    : t('suggestions.subtitle')}
+                </p>
+              </div>
+            </div>
+            <div className="mt-3 space-y-2">
+              {isLoadingSuggestions ? (
+                <div className="space-y-2">
+                  <div className="h-3 w-3/4 animate-pulse rounded bg-muted-foreground/30" />
+                  <div className="h-3 w-2/3 animate-pulse rounded bg-muted-foreground/30" />
+                </div>
+              ) : suggestionsError ? (
+                <p className="text-sm text-destructive">{t('suggestions.error')}</p>
+              ) : !hasDescriptionInput ? (
+                <p className="text-sm text-muted-foreground">{t('suggestions.prompt')}</p>
+              ) : !hasMinimumDescription ? (
+                <p className="text-sm text-muted-foreground">{t('suggestions.moreDetail')}</p>
+              ) : suggestions.length === 0 ? (
+                <p className="text-sm text-muted-foreground">{t('suggestions.none')}</p>
+              ) : (
+                <ul className="space-y-2 list-disc pl-5 text-sm leading-relaxed">
+                  {suggestions.map((suggestion, index) => (
+                    <li key={index}>{suggestion}</li>
+                  ))}
+                </ul>
+              )}
+            </div>
+          </div>
         </FieldGroup>
       </FieldSet>
 
