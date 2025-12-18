@@ -28,3 +28,14 @@ export async function createOrder(
 
   return ordersApi.createOrder(idToken, params);
 }
+
+export async function fetchMyOrders(): Promise<Order[]> {
+  const user = await awaitCurrentUser();
+
+  if (!user) {
+    throw new Error('Not authenticated');
+  }
+
+  const idToken = await user.getIdToken();
+  return ordersApi.getMyOrders(idToken);
+}

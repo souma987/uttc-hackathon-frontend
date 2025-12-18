@@ -16,6 +16,8 @@
     - [ ] **Create Listing**: Form to input item details, price, and upload images.
 - [ ] **Buying (Customer Flow)**
     - [ ] **Purchase Item**: Checkout process to buy a listed item.
+    - [x] **Order Details**: View order info at `/market/orders/[orderId]` with item, status, and counterpart profile.
+    - [x] **My Orders List**: Tabbed list at `/market/orders` for Bought and Sold orders.
 
 ## Social & Communication
 - [ ] **Direct Messaging**

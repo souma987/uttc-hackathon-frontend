@@ -165,6 +165,23 @@
         "cancelled": "キャンセル",
         "disputed": "係争中"
       }
+    },
+    "ordersList": {
+      "title": "注文一覧",
+      "tabs": {
+        "bought": "購入",
+        "sold": "販売"
+      },
+      "filter": {
+        "status": "ステータス",
+        "all": "すべて"
+      },
+      "empty": {
+        "bought": "まだ購入がありません",
+        "sold": "まだ販売がありません"
+      },
+      "loading": "注文を読み込み中...",
+      "errorGeneric": "注文の取得に失敗しました。再度お試しください。"
     }
   },
   "chat": {

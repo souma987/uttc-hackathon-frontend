@@ -165,6 +165,23 @@
         "cancelled": "Cancelled",
         "disputed": "Disputed"
       }
+    },
+    "ordersList": {
+      "title": "Orders",
+      "tabs": {
+        "bought": "Bought",
+        "sold": "Sold"
+      },
+      "filter": {
+        "status": "Status",
+        "all": "All"
+      },
+      "empty": {
+        "bought": "No purchases yet",
+        "sold": "No sales yet"
+      },
+      "loading": "Loading orders...",
+      "errorGeneric": "Couldn't load orders. Please try again."
     }
   },
   "chat": {

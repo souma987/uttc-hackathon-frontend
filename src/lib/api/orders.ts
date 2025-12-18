@@ -69,7 +69,22 @@ async function createOrder(
   return response.data;
 }
 
+// GET /orders/my — fetches all orders where the current user is buyer or seller
+// Required headers:
+//   - Authorization: Bearer <Firebase ID token>
+async function getMyOrders(idToken: string): Promise<Order[]> {
+  const response = await apiClient.get<Order[]>('/orders/my', {
+    headers: {
+      Authorization: `Bearer ${idToken}`,
+    },
+    validateStatus: (status) => status === 200,
+  });
+
+  return Array.isArray(response.data) ? response.data : [];
+}
+
 export const ordersApi = {
   getOrder,
   createOrder,
+  getMyOrders,
 };
