@@ -1,36 +1,35 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# ハッカソンフロントエンド
+Next.js で実装された、UTTC 8期 ハッカソンのためのプロジェクトのフロントエンドです。
 
-## Getting Started
+## 機能
+API 呼び出しなどの重要なロジックを UI から切り分けて `/lib` 内のコードに統一し 、また UI はローディング中のスケルトンなどを用いてスムーズにレンダリングされるよう務めました。
 
-First, run the development server:
+- **多言語対応** - フッターから日英切り替え可能です。
+- **AI 機能** - 商品説明入力中に、追記したほうが良いと思われる項目を LLM が提案してくれます。
+- **画像保存** - 画像保存は Firebase Storage を利用しています。Firebase 側でアクセス規則を指定することで、ログイン時のみアップロードを許可して、また
+- **サーバーサイド認証** - クライアントのログイン状況を監視し、変更があるたびにトークンをサーバーに送って Http only の cookie に保存しています。これにより、注文詳細などの、バックエンド側で認証が実装されている API を使ったページもサーバーサイドレンダリングができます。
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
-
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+### src ディレクトリ構造
+- **app** - Next.js の App Router。すべてのルートが定義されている。
+  - **api/update-auth-token** - サーバー側でユーザーを判定するためにサーバーと Firebase 認証トークンを共有するための API。受け取ったトークンは HTTP only の Cookie として保存される
+  - **auth** - ログイン及び新規登録ページ
+  - **market** - フリマアプリトップページ
+    - **listings** - 出品関連
+      - **[listingId]** - 出品詳細ページ
+      - **new** - 新規出品ページ
+    - **messages** - DM 一覧ページ
+      - **[userId]** - 特定の相手とのDMページ
+    - **orders** - 自分の取引一覧ページ
+      - **[orderId]** - 取引詳細ページ
+    - **users/[userId]** - 各ユーザープロフィール
+- **components** - 再利用可能なコンポーネント
+  - **ui** - shadcn/ui のコンポーネント
+- **hooks** - 再利用可能なカスタムフック
+- **i18n** - 多言語対応のためのコード
+- **lib** - UI に関連しないデータ処理などのコード。サーバーからもブラウザからも使う
+  - **api** - バックエンドとの通信を axios で行う。ロジックは含まず、通信とエンコード・デコードのみ行う
+  - **firebase** - Firebase 関連の設定。ロジック等は含まない。
+    - **common** - ブラウザとサーバーで処理を共通化できるよう、Auth をエクスポートしている。ブラウザの場合は自動で初期化され、サーバー側は明示的に初期化する。
+    - **browser** - ブラウザ側でのみ使うコード。Auth と Storage を設定している。
+    - **server** - サーバー側でのみ使うコード。Cookie からトークンを取得して Auth を初期化する。
+  - **services** - データ処理のロジックを含む。
