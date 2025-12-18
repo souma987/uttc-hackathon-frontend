@@ -112,6 +112,37 @@
       "emptyState": "まだ会話がありません",
       "loading": "会話を読み込み中...",
       "errorGeneric": "会話の取得に失敗しました。再度お試しください。"
+    },
+    "order": {
+      "title": "注文詳細",
+      "buyerView": {
+        "heading": "購入内容",
+        "orderNumber": "注文番号 #{orderId}",
+        "seller": "出品者",
+        "item": "商品"
+      },
+      "sellerView": {
+        "heading": "販売詳細",
+        "orderNumber": "注文番号 #{orderId}",
+        "buyer": "購入者",
+        "item": "商品"
+      },
+      "orderInfo": "注文情報",
+      "quantity": "数量",
+      "totalPrice": "合計金額",
+      "platformFee": "プラットフォーム手数料",
+      "netPayout": "純売上金額",
+      "status": "ステータス",
+      "orderDate": "注文日",
+      "lastUpdated": "最終更新",
+      "statuses": {
+        "paid": "支払い済み",
+        "shipped": "発送済み",
+        "delivered": "配送完了",
+        "completed": "取引完了",
+        "cancelled": "キャンセル",
+        "disputed": "係争中"
+      }
     }
   },
   "chat": {

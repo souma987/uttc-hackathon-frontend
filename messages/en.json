@@ -112,6 +112,37 @@
       "emptyState": "No conversations yet",
       "loading": "Loading conversations...",
       "errorGeneric": "Couldn't load conversations. Please try again."
+    },
+    "order": {
+      "title": "Order Details",
+      "buyerView": {
+        "heading": "Your Purchase",
+        "orderNumber": "Order #{orderId}",
+        "seller": "Seller",
+        "item": "Item"
+      },
+      "sellerView": {
+        "heading": "Sale Details",
+        "orderNumber": "Order #{orderId}",
+        "buyer": "Buyer",
+        "item": "Item"
+      },
+      "orderInfo": "Order Information",
+      "quantity": "Quantity",
+      "totalPrice": "Total Price",
+      "platformFee": "Platform Fee",
+      "netPayout": "Net Payout",
+      "status": "Status",
+      "orderDate": "Order Date",
+      "lastUpdated": "Last Updated",
+      "statuses": {
+        "paid": "Paid",
+        "shipped": "Shipped",
+        "delivered": "Delivered",
+        "completed": "Completed",
+        "cancelled": "Cancelled",
+        "disputed": "Disputed"
+      }
     }
   },
   "chat": {
