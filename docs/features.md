@@ -20,6 +20,7 @@
 ## Social & Communication
 - [ ] **Direct Messaging**
         - [x] **Chat System (MVP)**: Persistent messaging between buyers and sellers.
+    - [x] **Messages Inbox**: Latest conversations list at `/market/messages` with avatar, name, and truncated preview.
 
 ## AI Integrations
 - [ ] **Generative AI Feature**

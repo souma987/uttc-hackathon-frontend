@@ -1,5 +1,6 @@
 import {messagesApi, type CreateMessageRequest, type Message} from '../api/messages';
 import {awaitCurrentUser} from './auth';
+import {type Conversation} from '../api/messages';
 
 export type SendMessageParams = CreateMessageRequest;
 
@@ -27,4 +28,16 @@ export async function fetchMessagesWithUser(userId: string): Promise<Message[]> 
   const idToken = await user.getIdToken();
 
   return messagesApi.getMessagesWithUser(idToken, userId);
+}
+
+// Fetch conversations (latest message per user) for the current user
+export async function fetchConversations(): Promise<Conversation[]> {
+  const user = await awaitCurrentUser();
+
+  if (!user) {
+    throw new Error('Not authenticated');
+  }
+
+  const idToken = await user.getIdToken();
+  return messagesApi.getConversations(idToken);
 }

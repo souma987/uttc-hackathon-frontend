@@ -9,6 +9,17 @@ export type Message = {
   updated_at?: string;
 };
 
+export type UserProfile = {
+  id: string;
+  name: string;
+  avatar_url: string;
+};
+
+export type Conversation = {
+  message: Message;
+  user: UserProfile;
+};
+
 export type CreateMessageRequest = {
   receiver_id: string;
   content: string;
@@ -50,7 +61,27 @@ export async function createMessage(
   return response.data;
 }
 
+// GET /messages/conversations — latest message per user for current user
+// Required headers:
+//   - Authorization: Bearer <Firebase ID token>
+export async function getConversations(
+  idToken: string
+): Promise<Conversation[]> {
+  const response = await apiClient.get<Conversation[]>(
+    '/messages/conversations',
+    {
+      headers: {
+        Authorization: `Bearer ${idToken}`,
+      },
+      validateStatus: (status) => status === 200,
+    }
+  );
+
+  return Array.isArray(response.data) ? response.data : [];
+}
+
 export const messagesApi = {
   createMessage,
   getMessagesWithUser,
+  getConversations,
 };

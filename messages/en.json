@@ -106,6 +106,12 @@
           "conditionRequired": "Condition is required"
         }
       }
+    },
+    "messagesList": {
+      "title": "Messages",
+      "emptyState": "No conversations yet",
+      "loading": "Loading conversations...",
+      "errorGeneric": "Couldn't load conversations. Please try again."
     }
   },
   "chat": {

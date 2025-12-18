@@ -106,6 +106,12 @@
           "conditionRequired": "商品の状態を選択してください"
         }
       }
+    },
+    "messagesList": {
+      "title": "メッセージ",
+      "emptyState": "まだ会話がありません",
+      "loading": "会話を読み込み中...",
+      "errorGeneric": "会話の取得に失敗しました。再度お試しください。"
     }
   },
   "chat": {
