@@ -1,13 +1,7 @@
 import { BoxingWrapper } from "@/components/boxing-wrapper";
 import { ChatThread } from "@/components/chat/chat-thread";
 
-interface MessagesPageProps {
-  params: Promise<{
-    userId: string;
-  }>;
-}
-
-export default async function MessagesPage({ params }: MessagesPageProps) {
+export default async function MessagesPage({ params }: PageProps<'/market/messages/[userId]'>) {
   const { userId } = await params;
 
   return (

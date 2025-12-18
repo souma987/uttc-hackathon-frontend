@@ -6,13 +6,7 @@ import { Separator } from '@/components/ui/separator';
 import { ListingGallery } from './_components/listing-gallery';
 import { BoxingWrapper } from '@/components/boxing-wrapper';
 
-interface ListingDetailsPageProps {
-  params: Promise<{
-    listingId: string;
-  }>;
-}
-
-export default async function ListingDetailsPage({ params }: ListingDetailsPageProps) {
+export default async function ListingDetailsPage({ params }: PageProps<'/market/listings/[listingId]'>) {
   const { listingId } = await params;
   const t = await getTranslations('market.listing');
   
