@@ -112,7 +112,10 @@
     "emptyState": "まだメッセージがありません",
     "inputPlaceholder": "メッセージを入力...",
     "send": "送信",
-    "sending": "送信中..."
+    "sending": "送信中...",
+    "loading": "メッセージを読み込み中...",
+    "errorGeneric": "メッセージの取得に失敗しました。再度お試しください。",
+    "authRequired": "メッセージを見るにはログインしてください"
   },
   "auth": {
     "title": "ようこそ",

@@ -11,6 +11,9 @@ import {
   InputGroupTextarea,
 } from "@/components/ui/input-group"
 import { cn } from "@/lib/utils"
+import { fetchMessagesWithUser, sendMessage } from "@/lib/services/messages"
+import { awaitCurrentUser } from "@/lib/services/auth"
+import type { Message as ApiMessage } from "@/lib/api/messages"
 
 type ChatMessage = {
   id: string
@@ -22,28 +25,51 @@ type ChatMessage = {
 }
 
 type ChatThreadProps = {
-  messages: ChatMessage[]
+  receiverId: string
+  receiverName?: string
+  receiverAvatarUrl?: string
   className?: string
-  isSending?: boolean
-  onSendMessage?: (message: string) => void
 }
 
 export function ChatThread({
-  messages,
+  receiverId,
+  receiverName,
+  receiverAvatarUrl,
   className,
-  isSending = false,
-  onSendMessage,
 }: ChatThreadProps) {
   const t = useTranslations("chat")
   const [draft, setDraft] = useState("")
+  const [messages, setMessages] = useState<ChatMessage[]>([])
+  const [isLoading, setIsLoading] = useState(true)
+  const [isSending, setIsSending] = useState(false)
+  const [error, setError] = useState<string | null>(null)
+  const [currentUserId, setCurrentUserId] = useState<string | null>(null)
   const scrollRef = useRef<HTMLDivElement | null>(null)
 
   const sendDraft = () => {
     const trimmed = draft.trim()
     if (!trimmed || isSending) return
+    if (!currentUserId) {
+      setError(t("authRequired"))
+      return
+    }
 
-    onSendMessage?.(trimmed)
-    setDraft("")
+    setIsSending(true)
+    setError(null)
+
+    sendMessage({ receiver_id: receiverId, content: trimmed })
+      .then((created) => {
+        setMessages((prev) => [
+          ...prev,
+          mapApiMessage(created, currentUserId, receiverName, receiverAvatarUrl),
+        ])
+        setDraft("")
+      })
+      .catch((err) => {
+        console.error("Failed to send message", err)
+        setError(t("errorGeneric"))
+      })
+      .finally(() => setIsSending(false))
   }
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
@@ -73,11 +99,59 @@ export function ChatThread({
     scrollToBottom();
   }, [messages.length])
 
+  useEffect(() => {
+    let active = true
+
+    const loadMessages = async () => {
+      setIsLoading(true)
+      setError(null)
+      try {
+        const user = await awaitCurrentUser()
+        if (!user) {
+          setCurrentUserId(null)
+          if (active) setError(t("authRequired"))
+          return
+        }
+
+        setCurrentUserId(user.uid)
+
+        const data = await fetchMessagesWithUser(receiverId)
+        if (!active) return
+
+        const safeData = Array.isArray(data) ? data.filter(Boolean) : []
+        setMessages(
+          safeData.map((message) =>
+            mapApiMessage(message, user.uid, receiverName, receiverAvatarUrl)
+          )
+        )
+      } catch (err) {
+        console.error("Failed to load messages", err)
+        if (active) setError(t("errorGeneric"))
+      } finally {
+        if (active) setIsLoading(false)
+      }
+    }
+
+    void loadMessages();
+
+    return () => {
+      active = false
+    }
+  }, [receiverId, receiverName, receiverAvatarUrl, t])
+
   return (
     <div className={cn("flex h-full min-h-0 flex-col gap-3", className)}>
       <div className="flex-1 min-h-0 overflow-y-scroll" ref={scrollRef}>
         <div className="flex flex-col gap-3 px-1 pr-2 py-2 pb-6">
-          {messages.length === 0 ? (
+          {isLoading ? (
+            <p className="py-8 text-center text-sm text-muted-foreground">
+              {t("loading")}
+            </p>
+          ) : error ? (
+            <p className="py-8 text-center text-sm text-destructive">
+              {error}
+            </p>
+          ) : messages.length === 0 ? (
             <p className="py-8 text-center text-sm text-muted-foreground">
               {t("emptyState")}
             </p>
@@ -155,12 +229,18 @@ export function ChatThread({
             placeholder={t("inputPlaceholder")}
             rows={3}
             className="pr-12"
+            disabled={isSending || isLoading || Boolean(error)}
           />
           <InputGroupButton
             type="submit"
             variant="ghost"
             size="icon-sm"
-            disabled={isSending || draft.trim().length === 0}
+            disabled={
+              isSending ||
+              isLoading ||
+              Boolean(error) ||
+              draft.trim().length === 0
+            }
             className="absolute bottom-2 right-2 rounded-full"
             aria-label={isSending ? t("sending") : t("send")}
           >
@@ -170,4 +250,25 @@ export function ChatThread({
       </form>
     </div>
   )
+}
+
+function mapApiMessage(
+  apiMessage: ApiMessage,
+  currentUserId: string,
+  receiverName?: string,
+  receiverAvatarUrl?: string,
+): ChatMessage {
+  const direction = apiMessage.sender_id === currentUserId ? "outgoing" : "incoming"
+
+  return {
+    id: apiMessage.id,
+    content: apiMessage.content,
+    direction,
+    sender: direction === "incoming" ? receiverName : undefined,
+    avatarUrl: direction === "incoming" ? receiverAvatarUrl : undefined,
+    timestamp: new Date(apiMessage.created_at).toLocaleTimeString([], {
+      hour: "2-digit",
+      minute: "2-digit",
+    }),
+  }
 }

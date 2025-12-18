@@ -28,7 +28,8 @@ export async function getMessagesWithUser(
     validateStatus: (status) => status === 200,
   });
 
-  return response.data;
+  // Backend may return null instead of an empty array
+  return Array.isArray(response.data) ? response.data : [];
 }
 
 // POST /messages — creates a new message

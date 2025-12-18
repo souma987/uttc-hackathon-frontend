@@ -112,7 +112,10 @@
     "emptyState": "No messages yet",
     "inputPlaceholder": "Type a message...",
     "send": "Send",
-    "sending": "Sending..."
+    "sending": "Sending...",
+    "loading": "Loading messages...",
+    "errorGeneric": "Couldn't load messages. Please try again.",
+    "authRequired": "Sign in to view your messages"
   },
   "auth": {
     "title": "Welcome",

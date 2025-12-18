@@ -19,7 +19,7 @@
 
 ## Social & Communication
 - [ ] **Direct Messaging**
-    - [ ] **Chat System**: Real-time or persistent messaging between buyers and sellers.
+        - [x] **Chat System (MVP)**: Persistent messaging between buyers and sellers.
 
 ## AI Integrations
 - [ ] **Generative AI Feature**
