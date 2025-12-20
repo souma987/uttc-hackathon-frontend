@@ -12,6 +12,7 @@
 ## Marketplace Core
 - [ ] **Discovery & Browsing**
     - [x] **Item Listing**: Image-first feed at `/market` surfaces listings from the feed service with price overlays and titles.
+    - [x] **Listing Details**: Detailed view of a listing at `/market/listings/[listingId]` with images, price, description, and seller information.
 - [ ] **Selling (Vendor Flow)**
     - [ ] **Create Listing**: Form to input item details, price, and upload images.
 - [ ] **Buying (Customer Flow)**

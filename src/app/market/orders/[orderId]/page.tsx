@@ -5,7 +5,7 @@ import {fetchOrder} from '@/lib/services/orders';
 import {getPublicUserProfile} from '@/lib/services/users';
 import {BoxingWrapper} from '@/components/boxing-wrapper';
 import {Separator} from '@/components/ui/separator';
-import {UserInfoRow} from './_components/user-info-row';
+import { UserInfoRow } from '@/components/user/user-info-row';
 import Image from 'next/image';
 
 type PageProps = {

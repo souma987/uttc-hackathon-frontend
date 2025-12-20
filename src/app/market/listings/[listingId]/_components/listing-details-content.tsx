@@ -7,15 +7,18 @@ import { Toggle } from '@/components/ui/toggle';
 import { Languages, Loader2 } from 'lucide-react';
 import { ListingGallery } from './listing-gallery';
 import { PurchaseDialog } from './purchase-dialog';
+import { UserInfoRow } from '@/components/user/user-info-row';
 import { translateListing, type TranslateResult } from '@/lib/services/translation';
 import type { Listing } from '@/lib/api/listings';
+import type { UserProfile } from '@/lib/api/user';
 
 interface ListingDetailsContentProps {
   listing: Listing;
+  seller: UserProfile | null;
   locale: string;
 }
 
-export function ListingDetailsContent({ listing, locale }: ListingDetailsContentProps) {
+export function ListingDetailsContent({ listing, seller, locale }: ListingDetailsContentProps) {
   const t = useTranslations('market.listing');
   const [translatedData, setTranslatedData] = useState<TranslateResult | null>(null);
   const [isTranslated, setIsTranslated] = useState(false);
@@ -44,7 +47,7 @@ export function ListingDetailsContent({ listing, locale }: ListingDetailsContent
       }
     }
 
-    handleTranslation();
+    void handleTranslation();
   }, [listing.title, listing.description, locale]);
 
   const displayTitle = isTranslated && translatedData ? translatedData.translated_title : listing.title;
@@ -104,6 +107,13 @@ export function ListingDetailsContent({ listing, locale }: ListingDetailsContent
           <div className="flex flex-col justify-end">
             <PurchaseDialog listing={listing} />
           </div>
+        </div>
+
+        <Separator />
+
+        <div className="space-y-4">
+          <h3 className="text-lg font-semibold">{t('seller')}</h3>
+          <UserInfoRow user={seller} />
         </div>
 
         <Separator />

@@ -56,6 +56,7 @@
       "condition": "商品の状態",
       "quantity": "数量",
       "available": "残り {count} 点",
+      "seller": "出品者",
       "buyNow": "購入する",
       "soldOut": "売り切れ",
       "description": "商品説明",
