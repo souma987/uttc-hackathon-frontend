@@ -60,6 +60,8 @@
       "description": "Description",
       "noImage": "No Image Available",
       "viewImage": "View image {index}",
+      "translate": "Translate",
+      "showOriginal": "Show Original",
       "conditions": {
         "new": "New",
         "excellent": "Excellent",

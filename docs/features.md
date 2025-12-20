@@ -28,6 +28,9 @@
 ## AI Integrations
 - [ ] **Generative AI Feature**
     - [ ] **AI Assistant**: Implementation of a generative AI feature (e.g., auto-generating item descriptions from image/title).
+- [x] **Translation Support**
+    - [x] **Translate Content**: API integration to translate product title and description.
+    - [x] **Automatic Listing Translation**: Auto-translates listings on the details page with a toggle to switch back to original.
 
 ## Website Structure & UX
 - [x] **i18n**

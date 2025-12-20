@@ -60,6 +60,8 @@
       "description": "商品説明",
       "noImage": "画像がありません",
       "viewImage": "画像 {index} を表示",
+      "translate": "翻訳する",
+      "showOriginal": "原文を表示",
       "conditions": {
         "new": "新品",
         "excellent": "未使用に近い",
