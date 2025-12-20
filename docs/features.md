@@ -36,5 +36,5 @@
 - [x] **i18n**
   - [x] **Language Switcher**
 - [x] **Root Layout**
-  - [x] **Header**: Includes navigation, profile avatar, and language switcher. 
+  - [x] **Header**: Includes navigation (Browse, Sell, Orders, Messages), profile avatar, and language switcher. 
   - [x] **Footer**: Includes static links.

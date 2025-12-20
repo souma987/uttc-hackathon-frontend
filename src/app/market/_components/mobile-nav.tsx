@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { useTranslations } from "next-intl";
 import Link from "next/link";
-import { Menu, LayoutGrid, MessageSquare, Store } from "lucide-react";
+import { Menu, LayoutGrid, MessageSquare, Store, ReceiptText } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   Sheet,
@@ -22,6 +22,7 @@ export function MobileNav() {
   const navItems = [
     { href: "/market", label: t("nav.browse"), Icon: LayoutGrid },
     { href: "/market/listings/new", label: t("nav.sell"), Icon: Store },
+    { href: "/market/orders", label: t("nav.orders"), Icon: ReceiptText },
     { href: "/market/messages", label: t("nav.messages"), Icon: MessageSquare },
   ];
 

@@ -34,6 +34,7 @@
         "toggle": "メニューを開閉",
         "browse": "探す",
         "sell": "出品する",
+        "orders": "注文",
         "messages": "メッセージ"
       },
       "userMenu": {

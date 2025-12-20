@@ -34,6 +34,7 @@
         "toggle": "Toggle menu",
         "browse": "Browse",
         "sell": "Sell",
+        "orders": "Orders",
         "messages": "Messages"
       },
       "userMenu": {
