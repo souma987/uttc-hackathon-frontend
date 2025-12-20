@@ -1,6 +1,6 @@
 ﻿import {Auth} from "firebase/auth";
 import {FirebaseStorage} from "firebase/storage";
-import {tryInitializeBrowserAuth} from "@/lib/firebase/browser";
+import {tryInitializeBrowserFirebase} from "@/lib/firebase/browser";
 
 export const firebaseConfig = {
   apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
@@ -21,4 +21,4 @@ export const firebase: Firebase = {
   storage: undefined,
 }
 
-tryInitializeBrowserAuth();
+tryInitializeBrowserFirebase();

@@ -1,6 +1,7 @@
 ﻿import { firebase } from "@/lib/firebase/common";
 import { onAuthStateChanged, signInWithEmailAndPassword, signOut, type User, type UserCredential } from "firebase/auth";
 import { userApi, type CreateUserRequest, type DbUser } from "../api/user";
+import {tokenUpdateNotifier} from "@/lib/firebase/browser";
 
 export type SignInResult = {
   userCredential: UserCredential;
@@ -12,8 +13,13 @@ export async function signInWithEmailPassword(email: string, password: string): 
     throw new Error("Signin is only available in the browser");
   }
 
+  tokenUpdateNotifier.reset();
+  const update = tokenUpdateNotifier.wait(10000);
   const userCredential = await signInWithEmailAndPassword(firebase.auth, email, password);
-  return { userCredential };
+  if (!await update) {
+    throw new Error("Failed to update token for signIn");
+  }
+  return {userCredential};
 }
 
 // Sign out current user (client-only)
@@ -23,7 +29,12 @@ export async function signOutCurrentUser(): Promise<void> {
     throw new Error("Auth is only available in the browser");
   }
 
+  tokenUpdateNotifier.reset();
+  const update = tokenUpdateNotifier.wait(10000);
   await signOut(firebase.auth);
+  if (!await update) {
+    throw new Error("Failed to update token for signOut");
+  }
 }
 
 export type SignUpParams = CreateUserRequest;
