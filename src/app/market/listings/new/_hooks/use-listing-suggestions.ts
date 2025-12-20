@@ -12,7 +12,7 @@ interface UseListingSuggestionsParams {
   language: SuggestionLanguage;
 }
 
-const MIN_DESCRIPTION_LENGTH = 20;
+const MIN_DESCRIPTION_LENGTH = 10;
 const TYPING_DEBOUNCE_MS = 700;
 
 export function useListingSuggestions({
